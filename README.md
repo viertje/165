@@ -52,23 +52,24 @@ Umsetzung
 =========
 
 Grundbegriffe
-====================
+-------------------
 
 **BASE**
 
 BASE beschreibt die Eigenschaften von NoSQL Datenbanken. Das Akronym steht für:
-- Basically Available: Die Datenbank ist immer verfügbar, auch wenn sie nicht konsistent ist.
-- Available: Die Datenbank ist immer verfügbar, auch wenn sie nicht konsistent ist.
-- Soft state: Der Zustand der Datenbank kann sich im Laufe der Zeit ändern.
-- Eventual consistency: Die Datenbank wird schließlich konsistent, auch wenn sie es nicht sofort ist.
+
++ Basically Available: Die Datenbank ist immer verfügbar, auch wenn sie nicht konsistent ist.
++ Soft State: Der Zustand der Datenbank kann sich im Laufe der Zeit ändern.
++ Eventually Consistent: Die Datenbank wird schließlich konsistent, auch wenn sie es nicht sofort ist.
 
 **ACID**
 
 ACID beschreibt die Eigenschaften von Transaktionen in relationalen Datenbanken. Das Akronym steht für:
-- Atomicity: Alle Operationen einer Transaktion werden entweder vollständig ausgeführt oder gar nicht.
-- Consistency: Die Datenbank befind
-- Isolation: Transaktionen werden unabhängig voneinander ausgeführt.
-- Durability: Änderungen an der Datenbank werden dauerhaft gespeichert.
+
++ Atomicity: Alle Operationen einer Transaktion werden entweder vollständig ausgeführt oder gar nicht.
++ Consistency: Die Datenbank befind
++ Isolation: Transaktionen werden unabhängig voneinander ausgeführt.
++ Durability: Änderungen an der Datenbank werden dauerhaft gespeichert.
 
 **CAP-Theorem**
 
