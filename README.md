@@ -114,7 +114,7 @@ Nachweis
 
 > Ich kann eine NoSQL Datenbank gezielt für eine spezifische Anwendung auswählen. (z. B. Document Store für Videos)
 
-Fragenstellung
+Fragenstellung und Lernziele
 ==============
 
 - Was sind die Anwendungsfälle für NoSQL Datenbanken?
@@ -210,7 +210,7 @@ Nachweis
 
 > Ich kann den Einsatz einer NoSQL Datenbank kritisch hinterfragen und Verbesserungen vorschlagen.
 
-Fragenstellung
+Fragenstellung und Lernziele
 ==============
 
 - Wie kann ich den Einsatz einer NoSQL Datenbank kritisch hinterfragen?
@@ -228,7 +228,7 @@ Nachweis
 
 > Ich kann ein Datenmodell für eine NoSQL Datenbank interpretieren und erläutern.
 
-Fragenstellung
+Fragenstellung und Lernziele
 ==============
 
 Umsetzung
@@ -241,7 +241,7 @@ Nachweis
 
 > Ich kann ein vorgegebenes Datenmodell mit einer NoSQL Datenbank umsetzen.
 
-Fragenstellung
+Fragenstellung und Lernziele
 ==============
 
 Umsetzung
@@ -254,7 +254,7 @@ Nachweis
 
 > Ich kann ein Datenmodell für eine NoSQL Datenbank entwerfen.
 
-Fragenstellung
+Fragenstellung und Lernziele
 ==============
 
 Umsetzung
@@ -269,7 +269,7 @@ Nachweis
 
 > Ich kann die Struktur von Daten in einer NoSQL Datenbank erläutern.
 
-Fragenstellung
+Fragenstellung und Lernziele
 ==============
 
 Umsetzung
@@ -282,7 +282,7 @@ Nachweis
 
 > Ich kann Daten in eine NoSQL Datenbank übernehmen.
 
-Fragenstellung
+Fragenstellung und Lernziele
 ==============
 
 Umsetzung
@@ -295,7 +295,7 @@ Nachweis
 
 > Ich kann Probleme bei der Übernahme von Daten in eine NoSQL Datenbank erkennen und Lösungen aufzeigen.
 
-Fragenstellung
+Fragenstellung und Lernziele
 ==============
 
 Umsetzung
@@ -310,7 +310,7 @@ Nachweis
 
 > Ich kann die Funktion von Zugriffsberechtigungen in einer NoSQL Datenbank erläutern. (Benutzer, Rollen, Zugriffsrechte)
 
-Fragenstellung
+Fragenstellung und Lernziele
 ==============
 
 Umsetzung
@@ -323,7 +323,7 @@ Nachweis
 
 > Ich kann vordefinierte Zugriffsberechtigungen in einer NoSQL Datenbank umsetzen. (z. B. Rollen)
 
-Fragenstellung
+Fragenstellung und Lernziele
 ==============
 
 Umsetzung
@@ -336,7 +336,7 @@ Nachweis
 
 > Ich kann ein Konzept für Zugriffsberechtigungen einer NoSQL Datenbank entwerfen.
 
-Fragenstellung
+Fragenstellung und Lernziele
 ==============
 
 Umsetzung
@@ -351,7 +351,7 @@ Nachweis
 
 > Ich kann Konzepte für ein Backup einer NoSQL Datenbank erläutern. (z. B. on-demand snapshots, continous cloud backups, legacy backups)
 
-Fragenstellung
+Fragenstellung und Lernziele
 ==============
 
 Umsetzung
@@ -364,7 +364,7 @@ Nachweis
 
 > Ich kann ein Backup und Restore bei einer NoSQL Datenbank anwenden.
 
-Fragenstellung
+Fragenstellung und Lernziele
 ==============
 
 Umsetzung
@@ -377,7 +377,7 @@ Nachweis
 
 > Ich kann ein Konzept für das Backup einer NoSQL Datenbank erstellen.
 
-Fragenstellung
+Fragenstellung und Lernziele
 ==============
 
 Umsetzung
@@ -392,7 +392,7 @@ Nachweis
 
 > Ich kann das Prinzip der Skalierung und die unterschiedlichen Replikationsarten für eine NoSQL Datenbank erläutern. (z. B. Multimaster, primary and replica, Aktiv-Passiv und horizontale Skalierung)
 
-Fragenstellung
+Fragenstellung und Lernziele
 ==============
 
 Umsetzung
@@ -405,7 +405,7 @@ Nachweis
 
 > Ich kann für eine NoSQL Datenbank eine Replikation anwenden.
 
-Fragenstellung
+Fragenstellung und Lernziele
 ==============
 
 Umsetzung
@@ -418,7 +418,7 @@ Nachweis
 
 > Ich kann ein Konzept für die Skalierung einer NoSQL Datenbank erstellen.
 
-Fragenstellung
+Fragenstellung und Lernziele
 ==============
 
 Umsetzung
@@ -433,7 +433,7 @@ Nachweis
 
 > Ich kann das Prinzip des Zugriffes bei einer NoSQL Datenbank erläutern. (z. B. Queries, Projections)
 
-Fragenstellung
+Fragenstellung und Lernziele
 ==============
 
 Umsetzung
@@ -446,7 +446,7 @@ Nachweis
 
 > Ich kann eine Anbindung an eine NoSQL Datenbank implementieren. (z. B. API)
 
-Fragenstellung
+Fragenstellung und Lernziele
 ==============
 
 Umsetzung
@@ -459,7 +459,7 @@ Nachweis
 
 > Ich kann das Prinzip der parallelen Verarbeitung bei NoSQL Datenbanken anwenden. (z. B. MapReduce Algorithmen)
 
-Fragenstellung
+Fragenstellung und Lernziele
 ==============
 
 Umsetzung
