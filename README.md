@@ -152,7 +152,7 @@ Welche NoSQL Datenbanken eignen sich für welche Anwendungsfälle?
 
 **Key-Value Store**
 
-Eignet sich für Anwendungen, bei denen die Daten in Form von Schlüssel-Wert-Paaren gespeichert werden sollen.
+Beispielsweise bei Caching-Anwendungen, bei denen die Daten in Form von Schlüssel-Wert-Paaren gespeichert werden sollen.
 
 **Column-Family Store**
 
@@ -160,7 +160,7 @@ Eignet sich für Anwendungen, bei denen die Daten in Form von Spaltenfamilien ge
 
 **Graph-Datenbank**
 
-Eignet sich für Anwendungen, bei denen die Daten in Form von Graphen gespeichert werden sollen.
+Datenbanke mit Graphen können verwendet werden, um Beziehungen zwischen Daten zu speichern.
 
 Welche NoSQL Datenbanken gibt es?
 ---------------------------------
