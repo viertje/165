@@ -121,8 +121,8 @@ Fragenstellung und Lernziele
 - Was sind die Anwendungsfälle für NoSQL Datenbanken?
 - Wann brauche ich eine NoSQL Datenbank?
 - Welche NoSQL Datenbanken eignen sich für welche Anwendungsfälle?
-- Welche NoSQL Datenbanken gibt es?
-- Welche Vor- und Nachteile haben NoSQL Datenbanken?
+- Ich kenne die Vor- und Nachteile von NoSQL Datenbanken.
+- Ich kann 3 NoSQL Datenbanken nennen und ihre Anwendungsfälle erläutern.
 
 Umsetzung
 =========
@@ -139,7 +139,7 @@ Was sind die Anwendungsfälle für NoSQL Datenbanken?
 Wann brauche ich eine NoSQL Datenbank?
 --------------------------------------
 
-- Wenn die Datenmenge zu groß für eine relationale Datenbank ist
+- Wenn die Datenmenge zu gross für eine relationale Datenbank ist
 - Wenn die Datenstruktur nicht festgelegt ist
 - Wenn die Daten schnell verarbeitet werden müssen
 - Wenn die Daten über mehrere Server verteilt werden müssen
@@ -178,7 +178,6 @@ Welche NoSQL Datenbanken gibt es?
 Welche Vor- und Nachteile haben NoSQL Datenbanken?
 -------------------------------------------------
 
-Vorteile:
 
 | Vorteil   | Beschreibung   |
 | :--------- | :--------- |
@@ -186,7 +185,6 @@ Vorteile:
 | Flexibilität     | NoSQL-Datenbanken haben kein festes Tabellenschema, was es ermöglicht, die Datenstruktur flexibel anzupassen.     |
 | Hochverfügbarkeit     | NoSQL-Datenbanken können Replikation und Sharding verwenden, um die Verfügbarkeit der Daten zu verbessern.     |
 
-Nachteile:
 
 | Nachteil   | Beschreibung  |
 | :--------- | :--------- |
