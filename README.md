@@ -165,12 +165,15 @@ Eignet sich für Anwendungen, bei denen die Daten in Form von Graphen gespeicher
 Welche NoSQL Datenbanken gibt es?
 ---------------------------------
 
-| Anwendungsfall   | Datenbank   |
-| :--------- | :--------- |
-| Document Store     | MongoDB, CouchDB     |
-| Key-Value Store     | Redis, Memcached     |
-| Column-Family Store     | Cassandra, HBase     |
-| Graph-Datenbank     | Neo4j, ArangoDB     |
+| Datenbank   | Anwendungsfall   | Databasetype |
+| :--------- | :--------- | :--------- |
+| MongoDB   | Dokumente speichern     | Document Store |
+| CouchDB   | Offline bearbeiten und später synchronisieren   | Document Store |
+| Redis   | Cache für schnellen Zugriff auf Daten   | Key-Value Store |
+| Memcached   | Speichern von Schlüssel-Wert-Paaren   | Key-Value Store |
+| Cassandra   | Speichern von Spaltenfamilien   | Column-Family Store |
+| Neo4j   | Speichern von Graphen   | Graph-Datenbank |
+
 
 Welche Vor- und Nachteile haben NoSQL Datenbanken?
 -------------------------------------------------
@@ -189,6 +192,8 @@ Welche Vor- und Nachteile haben NoSQL Datenbanken?
 | Komplexität     | NoSQL-Datenbanken können komplexer zu konfigurieren und zu verwalten sein als relationale Datenbanken.     |
 | Mangelnde Unterstützung     | NoSQL-Datenbanken haben möglicherweise nicht die gleiche Unterstützung und Tools wie relationale Datenbanken.     |
 
+![databasetype](/images/databaseType.png)
+
 Quellen
 -------
 
@@ -197,9 +202,6 @@ Quellen
 > - [Redis](https://redis.io/)
 > - [Memcached](https://memcached.org/)
 > - [FireShip Video](https://www.youtube.com/watch?v=W2Z7fbCLSTw)
-
-Nachweis
-========
 
 ### A1E
 
