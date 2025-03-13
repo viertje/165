@@ -60,7 +60,7 @@ BASE beschreibt die Eigenschaften von NoSQL Datenbanken. Das Akronym steht für:
 
 - Basically Available: Die Datenbank ist immer verfügbar, auch wenn sie nicht konsistent ist.
 - Soft State: Der Zustand der Datenbank kann sich im Laufe der Zeit ändern.
-- Eventually Consistent: Die Datenbank wird schließlich konsistent, auch wenn sie es nicht sofort ist.
+- Eventually Consistent: Die Datenbank wird schliesslich konsistent, auch wenn sie es nicht sofort ist.
 
 **ACID**
 
@@ -213,8 +213,46 @@ Fragenstellung und Lernziele
 - Wie kann ich den Einsatz einer NoSQL Datenbank kritisch hinterfragen?
 - Welche Verbesserungen kann ich vorschlagen?
 
+- Ich kann den Einsatz einer NoSQL Datenbank kritisch hinterfragen.
+- Ich kann Verbesserungen für den Einsatz einer NoSQL Datenbank vorschlagen.
+
 Umsetzung
 =========
+
+Voraussetzung
+-----
+
+Die Voraussetzung für die kritische Hinterfragung des Einsatzes einer NoSQL-Datenbank ist ein **gutes Verständnis** der **Anforderungen** und **Einschränkungen** des Projekts.
+
+Ich muss verstehen, welche **Daten** gespeichert werden und wie sie **verarbeitet** und **abgerufen** werden sollen. Ausserdem muss ich die **Skalierbarkeitsanforderungen** und die **Verfügbarkeit** der Datenbank berücksichtigen.
+
+Wann brauche ich eine NoSQL Datenbank?
+--------------------------------------
+
+- Wenn die Datenmenge zu gross für eine relationale Datenbank ist
+- Wenn die Datenstruktur nicht festgelegt ist
+- Wenn die Daten schnell verarbeitet werden müssen
+- Wenn die Daten über mehrere Server verteilt werden müssen
+
+Wann brauche ich keine NoSQL Datenbank?
+--------------------------------------
+
+- Wenn die Datenstruktur festgelegt ist
+- Wenn die Datenmenge klein ist
+- Wenn die Datenbank nur auf einem Server betrieben wird
+- Wenn die Datenbank nur für Transaktionen verwendet wird
+
+![nosqlvssql](/images/nosqlVSsql.png)
+
+Verbesserungen vorschlagen
+--------------------------
+
+| Verbesserung   | Beschreibung   |
+| :--------- | :--------- |
+| Optimierung der Datenstruktur     | Item 2Überprüfen, ob die Datenstruktur effizient ist und ob sie die Anforderungen des Projekts erfüllt     |
+| Performance-Optimierung     | Überprüfen, ob die Datenbank die erforderliche Leistung erbringt und ob sie optimiert werden kann.     |
+| Sicherheitsverbesserungen     | Überprüfen, ob die Datenbank ausreichend geschützt ist und ob zusätzliche Sicherheitsmassnahmen erforderlich sind.     |
+
 
 Nachweis
 ========
@@ -225,8 +263,8 @@ Im Kapitel NoSQL Datenbank implementieren wirst du schrittweise an die praktisch
 
 - Zunächst lernst du, wie du ein bestehendes Datenmodell interpretierst und seine Struktur sowie Funktionsweise in einer NoSQL-Datenbank erläuterst.
 
-- Anschließend setzt du ein vorgegebenes Datenmodell in einer NoSQL-Datenbank um. Du erfährst, wie du Daten speicherst, abrufst und organisierst, um die Effizienz der Datenverwaltung sicherzustellen.
-- Abschließend entwickelst du eigene Datenmodelle für spezifische Anwendungsfälle. Hierbei lernst du, wie du Daten optimal strukturierst, um Skalierbarkeit, Performance und Anwendungsanforderungen bestmöglich zu unterstützen.
+- Anschliessend setzt du ein vorgegebenes Datenmodell in einer NoSQL-Datenbank um. Du erfährst, wie du Daten speicherst, abrufst und organisierst, um die Effizienz der Datenverwaltung sicherzustellen.
+- Abschliessend entwickelst du eigene Datenmodelle für spezifische Anwendungsfälle. Hierbei lernst du, wie du Daten optimal strukturierst, um Skalierbarkeit, Performance und Anwendungsanforderungen bestmöglich zu unterstützen.
 
 Dieses Kapitel gibt dir das Wissen und die praktischen Fähigkeiten, um NoSQL-Datenbanken effizient in Projekten zu implementieren und anzupassen.
 
@@ -270,7 +308,7 @@ Ein praktisches Beispiel zeigt die Struktur eines Dokuments in einer NoSQL-Daten
   "name": "Max Mustermann",
   "email": "<max.mustermann@example.com>",
   "adresse": {                                // Eingebettetes Dokument "adresse"
-    "straße": "Musterstraße 1",
+    "strasse": "Musterstrasse 1",
     "stadt": "Musterstadt",
     "plz": "12345"
   },
@@ -324,12 +362,12 @@ NoSQL-Datenbanken benötigen kein **festes Schema**. Dadurch können neue Felder
 Schnellere Lesezugriffe durch optimierte Abfragen
 ---------------------------------------
 
-Da alle relevanten Daten in einem Dokument gespeichert sind, können Abfragen **schneller** ausgeführt werden, da keine **JOIN-Operationen** erforderlich sind. Besonders bei Anwendungen mit **hohem Leseaufkommen** (z. B. Webanwendungen, Echtzeitanalysen) ist dies ein großer Vorteil.
+Da alle relevanten Daten in einem Dokument gespeichert sind, können Abfragen **schneller** ausgeführt werden, da keine **JOIN-Operationen** erforderlich sind. Besonders bei Anwendungen mit **hohem Leseaufkommen** (z. B. Webanwendungen, Echtzeitanalysen) ist dies ein grosser Vorteil.
 
-Skalierbarkeit für große Datenmengen
+Skalierbarkeit für grosse Datenmengen
 ---------------------------------------
 
-NoSQL-Datenbanken unterstützen **horizontale Skalierung**, d. h. sie können einfach auf mehrere Server verteilt werden. Dies ist essenziell für Anwendungen mit **großen Datenmengen** und **hohem Benutzeraufkommen**, z. B.:
+NoSQL-Datenbanken unterstützen **horizontale Skalierung**, d. h. sie können einfach auf mehrere Server verteilt werden. Dies ist essenziell für Anwendungen mit **grossen Datenmengen** und **hohem Benutzeraufkommen**, z. B.:
 
 - **Social Media Plattformen** (dynamische User-Daten, Kommentare, Likes)  
 - **E-Commerce Systeme** (Produktkataloge, Nutzerverhalten, Transaktionen)  
@@ -347,7 +385,7 @@ Im Gegensatz zu relationalen Datenbanken, die ein **striktes Schema** erfordern,
 Fazit
 ------
 
-Dokumentenorientierte NoSQL-Datenbanken bieten eine **hohe Flexibilität**, **effiziente Abfragen** und **gute Skalierbarkeit**, insbesondere für Anwendungen mit **dynamischen Datenmodellen** oder **großen Datenmengen**. Sie eignen sich besonders gut für **Webanwendungen, Big Data und Echtzeitanalysen**, während relationale Datenbanken weiterhin eine gute Wahl für **transaktionsbasierte Systeme** mit **komplexen Beziehungen** sind.
+Dokumentenorientierte NoSQL-Datenbanken bieten eine **hohe Flexibilität**, **effiziente Abfragen** und **gute Skalierbarkeit**, insbesondere für Anwendungen mit **dynamischen Datenmodellen** oder **grossen Datenmengen**. Sie eignen sich besonders gut für **Webanwendungen, Big Data und Echtzeitanalysen**, während relationale Datenbanken weiterhin eine gute Wahl für **transaktionsbasierte Systeme** mit **komplexen Beziehungen** sind.
 
 Nachweis
 ========
