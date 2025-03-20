@@ -444,7 +444,7 @@ JSON (JavaScript Object Notation) ist ein leichtgewichtiges, textbasiertes Daten
 - **Objekte** werden durch geschweifte Klammern `{}` eingeschlossen.  
 - **Arrays** werden durch eckige Klammern `[]` dargestellt.  
 - **Key-Value-Paare** sind die Grundbausteine; der Schlüssel ist immer ein String und der Wert kann ein String, eine Zahl, ein Boolean, ein Array, ein Objekt oder `null` sein.  
-  Das detaillierte Verständnis dieser Regeln ermoeglicht es, die Struktur von JSON-Dokumenten zu erklaeren.
+  Das detaillierte Verständnis dieser Regeln ermöglicht es, die Struktur von JSON-Dokumenten zu erklären.
 **Beispiel:**  
 
 ```json
@@ -482,7 +482,7 @@ Alle anderen Elemente, die nicht diesen Typen entsprechen, inklusive Kommentare 
  **Eigenschaften von Arrays:**  
 
 - Arrays werden durch eckige Klammern `[]` eingeschlossen.
-- Arrays können beliebige JSON-Werte enthalten, einschließlich Objekte, Arrays, Zahlen, Strings, Booleans und `null`.
+- Arrays können beliebige JSON-Werte enthalten, einschliesslich Objekte, Arrays, Zahlen, Strings, Booleans und `null`.
 - Die Reihenfolge der Elemente in einem Array ist wichtig und bleibt erhalten.
 
 Struktur in einer NoSQL-Datenbank (z. B. MongoDB)  
@@ -511,9 +511,10 @@ Struktur in einer NoSQL-Datenbank (z. B. MongoDB)
 ```  
 
 **Flexibilität der Struktur:**  
-**Individuelle Gestaltung:** Jedes Dokument kann unterschiedliche Felder enthalten, was die Anpassungsfähigkeit von NoSQL-Datenbanken unterstreicht.  
-**Embedded Documents:** Informationen können innerhalb eines Dokuments verschachtelt werden, um komplexe Strukturen abzubilden.  
-**Referenzen:** Statt Daten zu duplizieren, können Dokumente auch auf andere Dokumente verweisen.  
+
+- **Individuelle Gestaltung:** Jedes Dokument kann unterschiedliche Felder enthalten, was die Anpassungsfähigkeit von NoSQL-Datenbanken unterstreicht.  
+- **Embedded Documents:** Informationen können innerhalb eines Dokuments verschachtelt werden, um komplexe Strukturen abzubilden.  
+- **Referenzen:** Statt Daten zu duplizieren, können Dokumente auch auf andere Dokumente verweisen.  
 
 Vergleich zu relationalen Datenbanken
 ---------------------  
@@ -548,17 +549,7 @@ Wichtige Begriffe und Strukturen
 - **Referenz:**  
   Ein Verweis von einem Dokument auf ein anderes, um Beziehungen zwischen Daten darzustellen.
 - **Schema:**  
-  In relationalen Datenbanken fest definierte Strukturen; in NoSQL-Datenbanken fehlen diese Vorgaben, was zu erhöhter Flexibilitaet fürht.
-
-Fazit
-========
-
-NoSQL-Datenbanken wie MongoDB bieten durch ihre flexible, schemalose Datenstruktur eine innovative Alternative zu traditionellen relationalen Datenbanken.  
-Die Verwendung von JSON als zentrales Format erleichtert den Datenaustausch und die Integration in verschiedenste Anwendungen.  
-Die praxisnahe Anwendung, insbesondere der Import und Export von Daten, zeigt, dass NoSQL-Systeme durch ihre Flexibilitaet und Skalierbarkeit besonders für moderne, dynamische Anwendungen geeignet sind.
-
-Nachweis
-========
+  In relationalen Datenbanken fest definierte Strukturen; in NoSQL-Datenbanken fehlen diese Vorgaben, was zu erhöhter Flexibilität fürht.
 
 ### C1F
 
@@ -622,7 +613,7 @@ Benutzer sind individuelle Konten, die zur Authentifizierung benötigt werden. J
 Methoden umfassen Passwörter, Tokens oder Zertifikate, die den sicheren Zugang gewährleisten.
 **Beispiel:**  
 
-Ein Benutzerkonto kann folgendermaßen definiert sein:
+Ein Benutzerkonto kann folgendermassen definiert sein:
 
 ```json
 {
@@ -644,7 +635,7 @@ Ein Benutzerkonto kann folgendermaßen definiert sein:
 - Typische Rechte sind beispielsweise `read`, `write`, `dbAdmin` und `clusterAdmin`.
 
 **Beispiel:**  
-Eine Rolle mit Lese- und Schreibrechten könnte folgendermaßen aussehen:
+Eine Rolle mit Lese- und Schreibrechten könnte folgendermassen aussehen:
 
 ```json
 {
@@ -662,40 +653,31 @@ Dieses Beispiel verdeutlicht, wie Rollen Zugriffsrechte bündeln und gezielt zug
 Zugriffskontrolle in NoSQL Datenbanken
 ---------------------
 
-- **Implementierung:**  
-  - Die Zugriffskontrolle erfolgt durch interne Sicherheitsmodelle, wie zum Beispiel den Authentifizierungsmechanismus in MongoDB.  
-  - Administratoren definieren, welche Benutzer und Rollen existieren und welche spezifischen Rechte ihnen zugewiesen werden.
-- **Unterschied zu relationalen Datenbanken:**  
-  - Relationale Datenbanken besitzen oft ein festes, tabellenbasiertes Rollenkonzept.  
-  - NoSQL Datenbanken bieten mehr Flexibilität, um den verteilten und dynamischen Charakter moderner Anwendungen zu unterstützen.
+**Implementierung:**  
+
+- Die Zugriffskontrolle erfolgt durch interne Sicherheitsmodelle, wie zum Beispiel den Authentifizierungsmechanismus in MongoDB.  
+- Administratoren definieren, welche Benutzer und Rollen existieren und welche spezifischen Rechte ihnen zugewiesen werden.
+**Unterschied zu relationalen Datenbanken:**  
+- Relationale Datenbanken besitzen oft ein festes, tabellenbasiertes Rollenkonzept.  
+- NoSQL Datenbanken bieten mehr Flexibilität, um den verteilten und dynamischen Charakter moderner Anwendungen zu unterstützen.
 
 Wichtige Begriffe und Strukturen
 ---------------------
 
-- **Benutzer:**  
-  Individuelle Konten, die zur Authentifizierung und Autorisierung in der Datenbank verwendet werden.
-- **Rollen:**  
-  Gruppen von Zugriffsrechten, die mehreren Benutzern zugeordnet werden können.
-- **Zugriffsrechte:**  
-  Bestimmen, welche Aktionen (z. B. lesen, schreiben, administrieren) ein Benutzer oder eine Rolle durchführen darf.
-- **Authentifizierung:**  
-  Der Prozess, durch den die Identität eines Benutzers überprüft wird.
-- **Autorisierung:**  
-  Der Prozess, der festlegt, welche Operationen ein authentifizierter Benutzer ausführen darf.
+**Benutzer:**  
+Individuelle Konten, die zur Authentifizierung und Autorisierung in der Datenbank verwendet werden.
 
-Fazit
----------------
+**Rollen:**  
+Gruppen von Zugriffsrechten, die mehreren Benutzern zugeordnet werden können.
 
-Die Funktion von Zugriffsberechtigungen in NoSQL Datenbanken basiert auf einem flexiblen Sicherheitsmodell, das:
+**Zugriffsrechte:**  
+Bestimmen, welche Aktionen (z. B. lesen, schreiben, administrieren) ein Benutzer oder eine Rolle durchführen darf.
 
-- **Benutzer** eindeutig identifiziert und authentifiziert,
-- **Rollen** zur Gruppierung von Berechtigungen verwendet und
-- **Zugriffsrechte** festlegt, welche Aktionen erlaubt sind.
+**Authentifizierung:**  
+Der Prozess, durch den die Identität eines Benutzers überprüft wird.
 
-Dieses Modell gewährleistet, dass nur autorisierte Benutzer auf sensible Daten zugreifen können. Die strukturierte Verwaltung über Benutzer, Rollen und Rechte bietet zudem eine hohe Flexibilität, die besonders in verteilten NoSQL Systemen von Vorteil ist.
-
-Nachweis
-========
+**Autorisierung:**  
+Der Prozess, der festlegt, welche Operationen ein authentifizierter Benutzer ausführen darf.
 
 ### D1F
 
@@ -743,7 +725,6 @@ Fragenstellung und Lernziele
 
 - Ich kann die Konzepte für ein Backup einer NoSQL Datenbank erläutern.
 
-
 Umsetzung
 =========
 
@@ -751,7 +732,7 @@ Konzepte für ein Backup einer NoSQL Datenbank
 ---------------------------------------------
 
 | Kozept   | Beschreibung   |
-| :--------- | :--------- | 
+| :--------- | :--------- |
 | On-Demand Snapshots     | Manuelle Erstellung von Snapshots zu bestimmten Zeitpunkten     |  
 | Continuous Cloud Backups     | Automatische Sicherung der Datenbank in der Cloud     |  
 | Legacy Backups     | Traditionelle Backup-Methoden wie regelmässige Datensicherungen auf Festplatten     |  
@@ -777,8 +758,6 @@ SQL vs. NoSQL Backup
 | Zukunft | Stabil, bewährt     | Innovativ, wachsend     |
 | Management | Einfach, traditionell     | Komplex, modern     |
 
-
-
 Wie kann ich ein Backup einer NoSQL Datenbank erstellen?
 --------------------------------------------------------
 
@@ -799,11 +778,10 @@ Wie kann ich ein Restore einer NoSQL Datenbank durchführen?
 
 -> Testen der Wiederherstellung, um sicherzustellen, dass alle Daten korrekt wiederhergestellt wurden.
 
-
 Links
 ========
 
-> https://n2ws.com/blog/database-backup
+> <https://n2ws.com/blog/database-backup>
 
 ### E1F
 
@@ -873,7 +851,6 @@ Unterschiedliche Replikationsarten
 | Aktiv-Passiv-Replikation     | Ein aktiver Knoten, der schreibend auf die Datenbank zugreift, und ein passiver Knoten, der als Backup dient     |
 
 ![replication](images/replication.png)
-
 
 Vorteile von Skalierung und Replikation
 --------------------------------------
