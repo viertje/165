@@ -595,8 +595,104 @@ Nachweis
 Fragenstellung und Lernziele
 ==============
 
+- **Was sind Zugriffsberechtigungen in einer NoSQL Datenbank?**  
+  Verstehen, wie Benutzer, Rollen und Zugriffsrechte zusammenspielen, um den Zugriff auf Daten zu steuern.
+- **Wie werden Benutzer in einer NoSQL Datenbank angelegt und authentifiziert?**  
+  Erlernen, wie individuelle Benutzerkonten erstellt werden und welche Authentifizierungsmethoden eingesetzt werden.
+- **Welche Funktion haben Rollen und Zugriffsrechte?**  
+  Erkennen, wie Rollen zur Bündelung von Berechtigungen verwendet werden und wie Zugriffsrechte konkret festlegen, was ein Benutzer oder eine Rolle tun darf.
+- **Wie unterscheidet sich die Zugriffsverwaltung in NoSQL Datenbanken von relationalen Systemen?**  
+  Die speziellen Anforderungen und Flexibilitäten der NoSQL-Zugriffsverwaltung im Vergleich zu traditionellen, schema-gebundenen Systemen verstehen.
+
 Umsetzung
 =========
+
+![Role Based Access Control](images/rbac.png)
+
+In NoSQL Datenbanken erfolgt die Zugriffskontrolle über ein mehrschichtiges Sicherheitsmodell. Dieses Modell basiert auf der Verwaltung von Benutzern, der Zuweisung von Rollen und der Definition spezifischer Zugriffsrechte.
+
+Benutzerverwaltung
+---------------------
+
+**Definition und Bedeutung:**
+Benutzer sind individuelle Konten, die zur Authentifizierung benötigt werden. Jeder Benutzer erhält ein Passwort oder andere Authentifizierungsmerkmale, um seine Identität zu bestätigen.
+
+**Authentifizierung:**  
+
+Methoden umfassen Passwörter, Tokens oder Zertifikate, die den sicheren Zugang gewährleisten.
+**Beispiel:**  
+
+Ein Benutzerkonto kann folgendermaßen definiert sein:
+
+```json
+{
+  "user": "alice",
+  "pwd": "sicheresPasswort123",
+  "roles": ["readWrite"]
+}
+```
+
+  Dieses Beispiel zeigt, wie ein Benutzer zusammen mit seinen zugewiesenen Rollen in der Datenbank definiert wird.
+
+**Rollen:**  
+
+- Rollen fassen mehrere Zugriffsrechte zusammen und können mehreren Benutzern zugewiesen werden.  
+- Sie vereinfachen die Verwaltung, indem sie Berechtigungen zentral definieren.
+**Zugriffsrechte:**  
+
+- Zugriffsrechte bestimmen, welche Operationen (wie Lesen, Schreiben, Aktualisieren oder Löschen) ein Benutzer oder eine Rolle ausführen darf.  
+- Typische Rechte sind beispielsweise `read`, `write`, `dbAdmin` und `clusterAdmin`.
+
+**Beispiel:**  
+Eine Rolle mit Lese- und Schreibrechten könnte folgendermaßen aussehen:
+
+```json
+{
+  "role": "readWrite",
+  "db": "exampleDB",
+  "privileges": [
+    { "resource": { "db": "exampleDB", "collection": "documents" }, "actions": ["find", "insert", "update", "remove"] }
+  ],
+  "roles": []
+}
+```
+
+Dieses Beispiel verdeutlicht, wie Rollen Zugriffsrechte bündeln und gezielt zugewiesen werden können.
+
+Zugriffskontrolle in NoSQL Datenbanken
+---------------------
+
+- **Implementierung:**  
+  - Die Zugriffskontrolle erfolgt durch interne Sicherheitsmodelle, wie zum Beispiel den Authentifizierungsmechanismus in MongoDB.  
+  - Administratoren definieren, welche Benutzer und Rollen existieren und welche spezifischen Rechte ihnen zugewiesen werden.
+- **Unterschied zu relationalen Datenbanken:**  
+  - Relationale Datenbanken besitzen oft ein festes, tabellenbasiertes Rollenkonzept.  
+  - NoSQL Datenbanken bieten mehr Flexibilität, um den verteilten und dynamischen Charakter moderner Anwendungen zu unterstützen.
+
+Wichtige Begriffe und Strukturen
+---------------------
+
+- **Benutzer:**  
+  Individuelle Konten, die zur Authentifizierung und Autorisierung in der Datenbank verwendet werden.
+- **Rollen:**  
+  Gruppen von Zugriffsrechten, die mehreren Benutzern zugeordnet werden können.
+- **Zugriffsrechte:**  
+  Bestimmen, welche Aktionen (z. B. lesen, schreiben, administrieren) ein Benutzer oder eine Rolle durchführen darf.
+- **Authentifizierung:**  
+  Der Prozess, durch den die Identität eines Benutzers überprüft wird.
+- **Autorisierung:**  
+  Der Prozess, der festlegt, welche Operationen ein authentifizierter Benutzer ausführen darf.
+
+Fazit
+---------------
+
+Die Funktion von Zugriffsberechtigungen in NoSQL Datenbanken basiert auf einem flexiblen Sicherheitsmodell, das:
+
+- **Benutzer** eindeutig identifiziert und authentifiziert,
+- **Rollen** zur Gruppierung von Berechtigungen verwendet und
+- **Zugriffsrechte** festlegt, welche Aktionen erlaubt sind.
+
+Dieses Modell gewährleistet, dass nur autorisierte Benutzer auf sensible Daten zugreifen können. Die strukturierte Verwaltung über Benutzer, Rollen und Rechte bietet zudem eine hohe Flexibilität, die besonders in verteilten NoSQL Systemen von Vorteil ist.
 
 Nachweis
 ========
@@ -629,6 +725,11 @@ Nachweis
 
 ## Backup erstellen Restore durchführen
 
+Warum ist ein Backup wichtig?
+-----------------------------
+
+Ein **Backup** ist eine **Sicherungskopie** von Daten, die im Falle eines Datenverlusts oder einer Beschädigung wiederhergestellt werden kann. Es ist wichtig, regelmässig Backups zu erstellen, um Datenverluste zu vermeiden und die **Integrität** und **Verfügbarkeit** der Daten zu gewährleisten.
+
 ### E1G
 
 > Ich kann Konzepte für ein Backup einer NoSQL Datenbank erläutern. (z. B. on-demand snapshots, continous cloud backups, legacy backups)
@@ -636,11 +737,73 @@ Nachweis
 Fragenstellung und Lernziele
 ==============
 
+- Was sind die Konzepte für ein Backup einer NoSQL Datenbank?
+- Wie kann ich ein Backup einer NoSQL Datenbank erstellen?
+- Wie kann ich ein Restore einer NoSQL Datenbank durchführen?
+
+- Ich kann die Konzepte für ein Backup einer NoSQL Datenbank erläutern.
+
+
 Umsetzung
 =========
 
-Nachweis
+Konzepte für ein Backup einer NoSQL Datenbank
+---------------------------------------------
+
+| Kozept   | Beschreibung   |
+| :--------- | :--------- | 
+| On-Demand Snapshots     | Manuelle Erstellung von Snapshots zu bestimmten Zeitpunkten     |  
+| Continuous Cloud Backups     | Automatische Sicherung der Datenbank in der Cloud     |  
+| Legacy Backups     | Traditionelle Backup-Methoden wie regelmässige Datensicherungen auf Festplatten     |  
+| Point-in-Time Recovery     | Wiederherstellung der Datenbank auf einen bestimmten Zeitpunkt     |  
+
+![backup](/images/nosqlbackup.png)
+
+SQL vs. NoSQL Backup
+---------------------
+
+| Fall | SQL Backup   | NoSQL Backup   |
+| :--------- | :--------- | :--------- |
+| Methode | **Datensicherungen** und **Transaktionsprotokolle**     | **Snapshots**, **Replikation** und **Cloud-Backups**     |
+| Vorteile | Einfach zu implementieren, bewährte Methoden     | Skalierbar, effizient, automatisiert     |
+| Nachteile | Langsam, nicht für grosse Datenmengen geeignet     | Komplexer, erfordert spezielle Tools und Kenntnisse     |
+|Anwendung | Kleine bis mittlere Datenbanken, Transaktionsdaten     | Grosse Datenbanken, Big Data, Echtzeitanalysen     |
+| Beispiel | SQL Server, MySQL     | MongoDB, Cassandra     |
+| Wiederherstellung | Transaktionsprotokolle, Datensicherungen     | Snapshots, Replikation, Cloud-Backups     |
+| Skalierbarkeit | Vertikal, begrenzt     | Horizontal, unbegrenzt     |
+| Performance | Abhängig von der Hardware     | Abhängig von der Konfiguration     |
+| Kosten | Lizenzgebühren, Wartung     | Cloud-Abonnement, Speicherplatz     |
+| Support | Herstellerunterstützung     | Community, Dokumentation     |
+| Zukunft | Stabil, bewährt     | Innovativ, wachsend     |
+| Management | Einfach, traditionell     | Komplex, modern     |
+
+
+
+Wie kann ich ein Backup einer NoSQL Datenbank erstellen?
+--------------------------------------------------------
+
+Die Erstellung eines Backups einer NoSQL-Datenbank kann je nach Datenbank und Umgebung unterschiedlich sein. Im Allgemeinen gibt es jedoch folgende Schritte:
+
+-> Erstellen eines Snapshots der Datenbank, um den aktuellen Zustand zu sichern.
+
+-> Speichern des Snapshots an einem sicheren Ort, z. B. in der Cloud oder auf einem externen Laufwerk.
+
+-> Überprüfen, ob das Backup erfolgreich erstellt wurde und alle Daten enthalten sind.
+
+Wie kann ich ein Restore einer NoSQL Datenbank durchführen?
+----------------------------------------------------------
+
+-> Wiederherstellen des Backups aus dem gespeicherten Snapshot.
+
+-> Überprüfen, ob das Restore erfolgreich war und die Datenbank wiederhergestellt wurde.
+
+-> Testen der Wiederherstellung, um sicherzustellen, dass alle Daten korrekt wiederhergestellt wurden.
+
+
+Links
 ========
+
+> https://n2ws.com/blog/database-backup
 
 ### E1F
 
@@ -670,6 +833,8 @@ Nachweis
 
 ## Skalierung und Replikation bei einer NoSQL Datenbank anwenden
 
+Skalierung und Replikation sind wichtige Konzepte in der Datenbanktechnologie, um die Leistungsfähigkeit und Verfügbarkeit von Datenbanken zu verbessern. In diesem Kapitel lernst du, wie du NoSQL-Datenbanken skalierst und replizierst, um mit wachsenden Datenmengen und Benutzeranfragen umzugehen.
+
 ### F1G
 
 > Ich kann das Prinzip der Skalierung und die unterschiedlichen Replikationsarten für eine NoSQL Datenbank erläutern. (z. B. Multimaster, primary and replica, Aktiv-Passiv und horizontale Skalierung)
@@ -677,11 +842,44 @@ Nachweis
 Fragenstellung und Lernziele
 ==============
 
+- Was sind die Prinzipien der Skalierung und Replikation bei NoSQL Datenbanken?
+- Wie funktionieren die unterschiedlichen Replikationsarten?
+- Welche Vorteile bieten Skalierung und Replikation für NoSQL Datenbanken?
+
+- Ich kann das Prinzip der Skalierung und die unterschiedlichen Replikationsarten für eine NoSQL Datenbank erläutern.
+
 Umsetzung
 =========
 
-Nachweis
-========
+Skalierung
+----------
+
+Erhöhung der Kapazität und Leistungsfähigkeit einer Datenbank, um mit wachsenden Datenmengen und Benutzeranfragen umzugehen.
+
+![scaling](/images/scaling.png)
+
+Replikation
+-----------
+
+Erstellung und Aufrechterhaltung von Kopien von Daten, um die Verfügbarkeit und Zuverlässigkeit zu verbessern.
+
+Unterschiedliche Replikationsarten
+---------------------------------
+
+| Replikation   | Beschreibung   |
+| :--------- | :--------- |
+| Multimaster-Replikation     | Mehre Master-Knoten, die gleichzeitig schreibend auf die Datenbank zugreifen können     |
+| Primary and Replica-Replikation     | Ein primärer Knoten, der schreibend auf die Datenbank zugreift, und mehrere Replikationsknoten, die lesend auf die Datenbank zugreifen     |
+| Aktiv-Passiv-Replikation     | Ein aktiver Knoten, der schreibend auf die Datenbank zugreift, und ein passiver Knoten, der als Backup dient     |
+
+![replication](images/replication.png)
+
+
+Vorteile von Skalierung und Replikation
+--------------------------------------
+
+- **Höhere Verfügbarkeit**: Durch Replikation können Datenbanken auch bei Ausfällen eines Knotens weiterhin verfügbar sein.
+- **Bessere Leistung**: Skalierung ermöglicht es, die Leistungsfähigkeit der Datenbank zu erhöhen, um mit wachsenden Anforderungen Schritt zu halten.
 
 ### F1F
 
