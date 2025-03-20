@@ -500,6 +500,11 @@ Nachweis
 
 ## Backup erstellen Restore durchführen
 
+Warum ist ein Backup wichtig?
+-----------------------------
+
+Ein **Backup** ist eine **Sicherungskopie** von Daten, die im Falle eines Datenverlusts oder einer Beschädigung wiederhergestellt werden kann. Es ist wichtig, regelmässig Backups zu erstellen, um Datenverluste zu vermeiden und die **Integrität** und **Verfügbarkeit** der Daten zu gewährleisten.
+
 ### E1G
 
 > Ich kann Konzepte für ein Backup einer NoSQL Datenbank erläutern. (z. B. on-demand snapshots, continous cloud backups, legacy backups)
@@ -507,11 +512,73 @@ Nachweis
 Fragenstellung und Lernziele
 ==============
 
+- Was sind die Konzepte für ein Backup einer NoSQL Datenbank?
+- Wie kann ich ein Backup einer NoSQL Datenbank erstellen?
+- Wie kann ich ein Restore einer NoSQL Datenbank durchführen?
+
+- Ich kann die Konzepte für ein Backup einer NoSQL Datenbank erläutern.
+
+
 Umsetzung
 =========
 
-Nachweis
+Konzepte für ein Backup einer NoSQL Datenbank
+---------------------------------------------
+
+| Kozept   | Beschreibung   |
+| :--------- | :--------- | 
+| On-Demand Snapshots     | Manuelle Erstellung von Snapshots zu bestimmten Zeitpunkten     |  
+| Continuous Cloud Backups     | Automatische Sicherung der Datenbank in der Cloud     |  
+| Legacy Backups     | Traditionelle Backup-Methoden wie regelmässige Datensicherungen auf Festplatten     |  
+| Point-in-Time Recovery     | Wiederherstellung der Datenbank auf einen bestimmten Zeitpunkt     |  
+
+![backup](/images/nosqlbackup.png)
+
+SQL vs. NoSQL Backup
+---------------------
+
+| Fall | SQL Backup   | NoSQL Backup   |
+| :--------- | :--------- | :--------- |
+| Methode | **Datensicherungen** und **Transaktionsprotokolle**     | **Snapshots**, **Replikation** und **Cloud-Backups**     |
+| Vorteile | Einfach zu implementieren, bewährte Methoden     | Skalierbar, effizient, automatisiert     |
+| Nachteile | Langsam, nicht für grosse Datenmengen geeignet     | Komplexer, erfordert spezielle Tools und Kenntnisse     |
+|Anwendung | Kleine bis mittlere Datenbanken, Transaktionsdaten     | Grosse Datenbanken, Big Data, Echtzeitanalysen     |
+| Beispiel | SQL Server, MySQL     | MongoDB, Cassandra     |
+| Wiederherstellung | Transaktionsprotokolle, Datensicherungen     | Snapshots, Replikation, Cloud-Backups     |
+| Skalierbarkeit | Vertikal, begrenzt     | Horizontal, unbegrenzt     |
+| Performance | Abhängig von der Hardware     | Abhängig von der Konfiguration     |
+| Kosten | Lizenzgebühren, Wartung     | Cloud-Abonnement, Speicherplatz     |
+| Support | Herstellerunterstützung     | Community, Dokumentation     |
+| Zukunft | Stabil, bewährt     | Innovativ, wachsend     |
+| Management | Einfach, traditionell     | Komplex, modern     |
+
+
+
+Wie kann ich ein Backup einer NoSQL Datenbank erstellen?
+--------------------------------------------------------
+
+Die Erstellung eines Backups einer NoSQL-Datenbank kann je nach Datenbank und Umgebung unterschiedlich sein. Im Allgemeinen gibt es jedoch folgende Schritte:
+
+-> Erstellen eines Snapshots der Datenbank, um den aktuellen Zustand zu sichern.
+
+-> Speichern des Snapshots an einem sicheren Ort, z. B. in der Cloud oder auf einem externen Laufwerk.
+
+-> Überprüfen, ob das Backup erfolgreich erstellt wurde und alle Daten enthalten sind.
+
+Wie kann ich ein Restore einer NoSQL Datenbank durchführen?
+----------------------------------------------------------
+
+-> Wiederherstellen des Backups aus dem gespeicherten Snapshot.
+
+-> Überprüfen, ob das Restore erfolgreich war und die Datenbank wiederhergestellt wurde.
+
+-> Testen der Wiederherstellung, um sicherzustellen, dass alle Daten korrekt wiederhergestellt wurden.
+
+
+Links
 ========
+
+> https://n2ws.com/blog/database-backup
 
 ### E1F
 
@@ -541,6 +608,8 @@ Nachweis
 
 ## Skalierung und Replikation bei einer NoSQL Datenbank anwenden
 
+Skalierung und Replikation sind wichtige Konzepte in der Datenbanktechnologie, um die Leistungsfähigkeit und Verfügbarkeit von Datenbanken zu verbessern. In diesem Kapitel lernst du, wie du NoSQL-Datenbanken skalierst und replizierst, um mit wachsenden Datenmengen und Benutzeranfragen umzugehen.
+
 ### F1G
 
 > Ich kann das Prinzip der Skalierung und die unterschiedlichen Replikationsarten für eine NoSQL Datenbank erläutern. (z. B. Multimaster, primary and replica, Aktiv-Passiv und horizontale Skalierung)
@@ -548,11 +617,44 @@ Nachweis
 Fragenstellung und Lernziele
 ==============
 
+- Was sind die Prinzipien der Skalierung und Replikation bei NoSQL Datenbanken?
+- Wie funktionieren die unterschiedlichen Replikationsarten?
+- Welche Vorteile bieten Skalierung und Replikation für NoSQL Datenbanken?
+
+- Ich kann das Prinzip der Skalierung und die unterschiedlichen Replikationsarten für eine NoSQL Datenbank erläutern.
+
 Umsetzung
 =========
 
-Nachweis
-========
+Skalierung
+----------
+
+Erhöhung der Kapazität und Leistungsfähigkeit einer Datenbank, um mit wachsenden Datenmengen und Benutzeranfragen umzugehen.
+
+![scaling](/images/scaling.png)
+
+Replikation
+-----------
+
+Erstellung und Aufrechterhaltung von Kopien von Daten, um die Verfügbarkeit und Zuverlässigkeit zu verbessern.
+
+Unterschiedliche Replikationsarten
+---------------------------------
+
+| Replikation   | Beschreibung   |
+| :--------- | :--------- |
+| Multimaster-Replikation     | Mehre Master-Knoten, die gleichzeitig schreibend auf die Datenbank zugreifen können     |
+| Primary and Replica-Replikation     | Ein primärer Knoten, der schreibend auf die Datenbank zugreift, und mehrere Replikationsknoten, die lesend auf die Datenbank zugreifen     |
+| Aktiv-Passiv-Replikation     | Ein aktiver Knoten, der schreibend auf die Datenbank zugreift, und ein passiver Knoten, der als Backup dient     |
+
+![replication](images/replication.png)
+
+
+Vorteile von Skalierung und Replikation
+--------------------------------------
+
+- **Höhere Verfügbarkeit**: Durch Replikation können Datenbanken auch bei Ausfällen eines Knotens weiterhin verfügbar sein.
+- **Bessere Leistung**: Skalierung ermöglicht es, die Leistungsfähigkeit der Datenbank zu erhöhen, um mit wachsenden Anforderungen Schritt zu halten.
 
 ### F1F
 
