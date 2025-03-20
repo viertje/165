@@ -434,6 +434,8 @@ NoSQL-Datenbanken wie MongoDB arbeiten mit einem flexiblen, schemalosen Datenmod
 Grundlagen von JSON verstehen
 ---------------------
 
+![JSON syntax diagram](images/json_syntax_diagram.png)
+
 **Definition und Bedeutung:**  
 JSON (JavaScript Object Notation) ist ein leichtgewichtiges, textbasiertes Datenformat, das der Datenübertragung zwischen Anwendungen dient. Dieses Wissen ist grundlegend, um die Rolle von JSON in NoSQL-Datenbanken zu verstehen – ein zentrales Lernziel.
 
