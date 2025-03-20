@@ -174,17 +174,14 @@ Welche NoSQL Datenbanken gibt es?
 | Cassandra   | Speichern von Spaltenfamilien   | Column-Family Store |
 | Neo4j   | Speichern von Graphen   | Graph-Datenbank |
 
-
 Welche Vor- und Nachteile haben NoSQL Datenbanken?
 -------------------------------------------------
-
 
 | Vorteil   | Beschreibung   |
 | :--------- | :--------- |
 | Skalierbarkeit     | NoSQL-Datenbanken können horizontal skalieren, d. h. sie können auf mehrere Server verteilt werden, um die Last zu verteilen und die Leistung zu verbessern.     |
 | Flexibilität     | NoSQL-Datenbanken haben kein festes Tabellenschema, was es ermöglicht, die Datenstruktur flexibel anzupassen.     |
 | Hochverfügbarkeit     | NoSQL-Datenbanken können Replikation und Sharding verwenden, um die Verfügbarkeit der Daten zu verbessern.     |
-
 
 | Nachteil   | Beschreibung  |
 | :--------- | :--------- |
@@ -252,7 +249,6 @@ Verbesserungen vorschlagen
 | Optimierung der Datenstruktur     | Item 2Überprüfen, ob die Datenstruktur effizient ist und ob sie die Anforderungen des Projekts erfüllt     |
 | Performance-Optimierung     | Überprüfen, ob die Datenbank die erforderliche Leistung erbringt und ob sie optimiert werden kann.     |
 | Sicherheitsverbesserungen     | Überprüfen, ob die Datenbank ausreichend geschützt ist und ob zusätzliche Sicherheitsmassnahmen erforderlich sind.     |
-
 
 Nachweis
 ========
@@ -425,8 +421,141 @@ Nachweis
 Fragenstellung und Lernziele
 ==============
 
+- **Was ist JSON und welche Rolle spielt es in NoSQL-Datenbanken?**  
+- **Wie ist die Struktur von JSON-Dokumenten aufgebaut?**  
+- **Wie werden Daten in einer dokumentenorientierten NoSQL-Datenbank gespeichert?**  
+- **Welche Unterschiede gibt es zwischen relationalen und NoSQL-Datenbanken?**  
+
 Umsetzung
 =========
+
+NoSQL-Datenbanken wie MongoDB arbeiten mit einem flexiblen, schemalosen Datenmodell. Im Zentrum steht dabei das **JSON-Format**, das als Grundlage für die Darstellung und den Austausch von Daten dient.
+
+Grundlagen von JSON verstehen
+---------------------
+
+![JSON syntax diagram](images/json_syntax_diagram.png)
+
+**Definition und Bedeutung:**  
+JSON (JavaScript Object Notation) ist ein leichtgewichtiges, textbasiertes Datenformat, das der Datenübertragung zwischen Anwendungen dient. Dieses Wissen ist grundlegend, um die Rolle von JSON in NoSQL-Datenbanken zu verstehen – ein zentrales Lernziel.
+
+**Syntax-Regeln:**
+
+- **Objekte** werden durch geschweifte Klammern `{}` eingeschlossen.  
+- **Arrays** werden durch eckige Klammern `[]` dargestellt.  
+- **Key-Value-Paare** sind die Grundbausteine; der Schlüssel ist immer ein String und der Wert kann ein String, eine Zahl, ein Boolean, ein Array, ein Objekt oder `null` sein.  
+  Das detaillierte Verständnis dieser Regeln ermoeglicht es, die Struktur von JSON-Dokumenten zu erklaeren.
+**Beispiel:**  
+
+```json
+{
+  "person": {
+    "vorname": "Peter",
+    "nachname": "Muster",
+    "alter": 30,
+    "hobbys": ["Lesen", "Reisen", "Programmieren"]
+  }
+}
+```
+
+Gültige Elemente & Eigenschaften von Objekten und Arrays  
+---------------------
+
+**Gültige Elemente in JSON:**  
+Ein JSON-Dokument darf nur bestimmte Datentypen enthalten, die als gültig definiert sind:
+
+- Eine Zahl (integer oder floating point)
+- Einen String (in doppelten Anführungszeichen)
+- Einen Boolean (`true` oder `false`)
+- Ein Array (in eckigen Klammern)
+- Ein Objekt (in geschweiften Klammern)
+- Den Wert `null`  
+Alle anderen Elemente, die nicht diesen Typen entsprechen, inklusive Kommentare mit `//`, gelten als ungültig.
+  
+**Eigenschaften von Objekten:**  
+
+- Objekte werden durch geschweifte Klammern `{}` eingeschlossen.
+- Sie bestehen aus Key-Value-Paaren, wobei der Schlüssel stets ein String sein muss.
+- Mehrere Key-Value-Paare werden durch Kommas getrennt.
+- Objekte können auch andere Objekte (verschachtelte Strukturen) als Werte enthalten.
+
+ **Eigenschaften von Arrays:**  
+
+- Arrays werden durch eckige Klammern `[]` eingeschlossen.
+- Arrays können beliebige JSON-Werte enthalten, einschließlich Objekte, Arrays, Zahlen, Strings, Booleans und `null`.
+- Die Reihenfolge der Elemente in einem Array ist wichtig und bleibt erhalten.
+
+Struktur in einer NoSQL-Datenbank (z. B. MongoDB)  
+---------------------
+
+- **Dokumente und Collections:**  
+- **Dokumente:** Daten werden in JSON-ähnlichen Dokumenten gespeichert. Dies ermöglicht das flexible Speichern von Informationen
+- **Collections:** Eine Collection ist eine Zusammenfassung von Dokumenten – vergleichbar mit Tabellen in relationalen Datenbanken, jedoch ohne festes Schema.  
+- **Beispiel eines MongoDB-Dokuments:**  
+
+```json
+{
+  "_id": "unique_identifier",
+  "name": "Peter Muster",
+  "kontakt": {
+    "email": "peter.muster@example.com",
+    "telefon": "0123456789"
+  },
+  "adresse": {
+    "strasse": "Musterstrasse 12",
+    "stadt": "Musterstadt",
+    "plz": "12345"
+  },
+  "interessen": ["Lesen", "Reisen", "Programmieren"]
+}
+```  
+
+**Flexibilität der Struktur:**  
+**Individuelle Gestaltung:** Jedes Dokument kann unterschiedliche Felder enthalten, was die Anpassungsfähigkeit von NoSQL-Datenbanken unterstreicht.  
+**Embedded Documents:** Informationen können innerhalb eines Dokuments verschachtelt werden, um komplexe Strukturen abzubilden.  
+**Referenzen:** Statt Daten zu duplizieren, können Dokumente auch auf andere Dokumente verweisen.  
+
+Vergleich zu relationalen Datenbanken
+---------------------  
+
+- **Schema und Struktur:**  
+  - Relationale Datenbanken verwenden ein fest definiertes Schema, was zu starren Datenstrukturen führt.  
+  - NoSQL-Datenbanken sind schemalos und erlauben variable Datenstrukturen.  
+
+- **Datenbeziehungen:**  
+  - Relationale Datenbanken nutzen **Joins**, um Beziehungen zwischen Tabellen herzustellen.  
+  - In NoSQL-Datenbanken erfolgt die Modellierung von Beziehungen häufig durch **Embedded Documents** oder **Referenzen**.  
+
+- **Speicherung:**  
+  - Relationale Datenbanken speichern Daten nicht im Klartext, sondern in optimierten binären Formaten, die für effiziente Abfragen und Speicherplatznutzung ausgelegt sind.  
+  - NoSQL-Datenbanken verwenden ebenfalls binäre Formate, wie BSON (Binary JSON) in MongoDB, um die Daten effizient zu speichern und zu verarbeiten.  
+
+- **Skalierung:**  
+  - Relationale Systeme werden in der Regel vertikal skaliert (leistungsstärkere Server).  
+  - NoSQL-Datenbanken sind für horizontale Skalierung ausgelegt und können über mehrere Server verteilt werden.  
+
+Wichtige Begriffe und Strukturen
+-------------------
+
+- **JSON (JavaScript Object Notation):**  
+  Ein standardisiertes, textbasiertes Format zur Darstellung strukturierter Daten.
+- **Dokumentenorientierte Datenbank:**  
+  Eine Datenbank, in der Daten als Dokumente (meist im JSON-Format) gespeichert werden.
+- **Collection:**  
+  Eine Zusammenfassung von Dokumenten innerhalb einer Datenbank, vergleichbar mit einer Tabelle, jedoch ohne starres Schema.
+- **Embedded Document:**  
+  Ein innerhalb eines Dokuments verschachteltes weiteres Dokument, das komplexe Strukturen erlaubt.
+- **Referenz:**  
+  Ein Verweis von einem Dokument auf ein anderes, um Beziehungen zwischen Daten darzustellen.
+- **Schema:**  
+  In relationalen Datenbanken fest definierte Strukturen; in NoSQL-Datenbanken fehlen diese Vorgaben, was zu erhöhter Flexibilitaet fürht.
+
+Fazit
+========
+
+NoSQL-Datenbanken wie MongoDB bieten durch ihre flexible, schemalose Datenstruktur eine innovative Alternative zu traditionellen relationalen Datenbanken.  
+Die Verwendung von JSON als zentrales Format erleichtert den Datenaustausch und die Integration in verschiedenste Anwendungen.  
+Die praxisnahe Anwendung, insbesondere der Import und Export von Daten, zeigt, dass NoSQL-Systeme durch ihre Flexibilitaet und Skalierbarkeit besonders für moderne, dynamische Anwendungen geeignet sind.
 
 Nachweis
 ========
@@ -466,8 +595,104 @@ Nachweis
 Fragenstellung und Lernziele
 ==============
 
+- **Was sind Zugriffsberechtigungen in einer NoSQL Datenbank?**  
+  Verstehen, wie Benutzer, Rollen und Zugriffsrechte zusammenspielen, um den Zugriff auf Daten zu steuern.
+- **Wie werden Benutzer in einer NoSQL Datenbank angelegt und authentifiziert?**  
+  Erlernen, wie individuelle Benutzerkonten erstellt werden und welche Authentifizierungsmethoden eingesetzt werden.
+- **Welche Funktion haben Rollen und Zugriffsrechte?**  
+  Erkennen, wie Rollen zur Bündelung von Berechtigungen verwendet werden und wie Zugriffsrechte konkret festlegen, was ein Benutzer oder eine Rolle tun darf.
+- **Wie unterscheidet sich die Zugriffsverwaltung in NoSQL Datenbanken von relationalen Systemen?**  
+  Die speziellen Anforderungen und Flexibilitäten der NoSQL-Zugriffsverwaltung im Vergleich zu traditionellen, schema-gebundenen Systemen verstehen.
+
 Umsetzung
 =========
+
+![Role Based Access Control](images/rbac.png)
+
+In NoSQL Datenbanken erfolgt die Zugriffskontrolle über ein mehrschichtiges Sicherheitsmodell. Dieses Modell basiert auf der Verwaltung von Benutzern, der Zuweisung von Rollen und der Definition spezifischer Zugriffsrechte.
+
+Benutzerverwaltung
+---------------------
+
+**Definition und Bedeutung:**
+Benutzer sind individuelle Konten, die zur Authentifizierung benötigt werden. Jeder Benutzer erhält ein Passwort oder andere Authentifizierungsmerkmale, um seine Identität zu bestätigen.
+
+**Authentifizierung:**  
+
+Methoden umfassen Passwörter, Tokens oder Zertifikate, die den sicheren Zugang gewährleisten.
+**Beispiel:**  
+
+Ein Benutzerkonto kann folgendermaßen definiert sein:
+
+```json
+{
+  "user": "alice",
+  "pwd": "sicheresPasswort123",
+  "roles": ["readWrite"]
+}
+```
+
+  Dieses Beispiel zeigt, wie ein Benutzer zusammen mit seinen zugewiesenen Rollen in der Datenbank definiert wird.
+
+**Rollen:**  
+
+- Rollen fassen mehrere Zugriffsrechte zusammen und können mehreren Benutzern zugewiesen werden.  
+- Sie vereinfachen die Verwaltung, indem sie Berechtigungen zentral definieren.
+**Zugriffsrechte:**  
+
+- Zugriffsrechte bestimmen, welche Operationen (wie Lesen, Schreiben, Aktualisieren oder Löschen) ein Benutzer oder eine Rolle ausführen darf.  
+- Typische Rechte sind beispielsweise `read`, `write`, `dbAdmin` und `clusterAdmin`.
+
+**Beispiel:**  
+Eine Rolle mit Lese- und Schreibrechten könnte folgendermaßen aussehen:
+
+```json
+{
+  "role": "readWrite",
+  "db": "exampleDB",
+  "privileges": [
+    { "resource": { "db": "exampleDB", "collection": "documents" }, "actions": ["find", "insert", "update", "remove"] }
+  ],
+  "roles": []
+}
+```
+
+Dieses Beispiel verdeutlicht, wie Rollen Zugriffsrechte bündeln und gezielt zugewiesen werden können.
+
+Zugriffskontrolle in NoSQL Datenbanken
+---------------------
+
+- **Implementierung:**  
+  - Die Zugriffskontrolle erfolgt durch interne Sicherheitsmodelle, wie zum Beispiel den Authentifizierungsmechanismus in MongoDB.  
+  - Administratoren definieren, welche Benutzer und Rollen existieren und welche spezifischen Rechte ihnen zugewiesen werden.
+- **Unterschied zu relationalen Datenbanken:**  
+  - Relationale Datenbanken besitzen oft ein festes, tabellenbasiertes Rollenkonzept.  
+  - NoSQL Datenbanken bieten mehr Flexibilität, um den verteilten und dynamischen Charakter moderner Anwendungen zu unterstützen.
+
+Wichtige Begriffe und Strukturen
+---------------------
+
+- **Benutzer:**  
+  Individuelle Konten, die zur Authentifizierung und Autorisierung in der Datenbank verwendet werden.
+- **Rollen:**  
+  Gruppen von Zugriffsrechten, die mehreren Benutzern zugeordnet werden können.
+- **Zugriffsrechte:**  
+  Bestimmen, welche Aktionen (z. B. lesen, schreiben, administrieren) ein Benutzer oder eine Rolle durchführen darf.
+- **Authentifizierung:**  
+  Der Prozess, durch den die Identität eines Benutzers überprüft wird.
+- **Autorisierung:**  
+  Der Prozess, der festlegt, welche Operationen ein authentifizierter Benutzer ausführen darf.
+
+Fazit
+---------------
+
+Die Funktion von Zugriffsberechtigungen in NoSQL Datenbanken basiert auf einem flexiblen Sicherheitsmodell, das:
+
+- **Benutzer** eindeutig identifiziert und authentifiziert,
+- **Rollen** zur Gruppierung von Berechtigungen verwendet und
+- **Zugriffsrechte** festlegt, welche Aktionen erlaubt sind.
+
+Dieses Modell gewährleistet, dass nur autorisierte Benutzer auf sensible Daten zugreifen können. Die strukturierte Verwaltung über Benutzer, Rollen und Rechte bietet zudem eine hohe Flexibilität, die besonders in verteilten NoSQL Systemen von Vorteil ist.
 
 Nachweis
 ========
