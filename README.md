@@ -626,6 +626,17 @@ Ein Benutzerkonto kann folgendermassen definiert sein:
 }
 ```
 
+Dieses Beispiel zeigt, wie ein Benutzer mit einem Passwort und einer Rolle in der Datenbank definiert wird.
+
+```js
+db.createUser({
+  user: "alice",
+  pwd: "sicheresPasswort123",
+  roles: [{ role: "readWrite", db: "exampleDB" }]
+});
+
+```
+
   Dieses Beispiel zeigt, wie ein Benutzer zusammen mit seinen zugewiesenen Rollen in der Datenbank definiert wird.
 
 **Rollen:**  
