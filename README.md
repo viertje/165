@@ -933,14 +933,18 @@ Queries in NoSQL Datenbanken
 ---------------------
 - **Definition und Funktion:**  
   Eine Query ist ein Abfragebefehl, der Kriterien zur Auswahl von Dokumenten definiert.  
-- **Syntax und Operatoren:**  
+- **Syntax und Operatoren:**
+
   - Abfragen werden in einer JSON-ähnlichen Struktur formuliert.  
   - Gängige Operatoren sind beispielsweise:
+
     - `$eq`: prüft auf Gleichheit.
     - `$gt` / `$lt`: prüfen auf grösser oder kleiner als einen bestimmten Wert.
     - `$in`: prüft, ob ein Wert in einer Liste enthalten ist.
+
 - **Beispiel einer Query:**  
   Um alle Dokumente zu finden, in denen das Feld `status` den Wert `"active"` hat, kann folgende Query verwendet werden:
+  
   ```json
   {
     "status": { "$eq": "active" }
@@ -952,9 +956,11 @@ Projections in NoSQL Datenbanken
 ---------------------
 - **Definition und Zweck:**  
   Projections dienen dazu, die zurückgegebenen Felder einer Query zu bestimmen. Sie helfen, nur relevante Daten abzurufen und reduzieren somit die Menge der übertragenen Informationen.
-- **Funktionsweise:**  
+- **Funktionsweise:** 
+
   - Durch Angabe einer Projection kann man Felder ein- oder ausschliessen.
   - Typischerweise wird eine 1 für Inklusion und eine 0 für Exklusion verwendet.
+
 - **Beispiel einer Projection:**  
   Um bei der obigen Query nur die Felder `name` und `status` zurückzugeben, kann die Projection wie folgt ergänzt werden:
   ```json
