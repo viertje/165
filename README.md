@@ -614,6 +614,7 @@ Benutzer sind individuelle Konten, die zur Authentifizierung benötigt werden. J
 **Authentifizierung:**  
 
 Methoden umfassen Passwörter, Tokens oder Zertifikate, die den sicheren Zugang gewährleisten.
+
 **Beispiel:**  
 
 Ein Benutzerkonto kann folgendermassen definiert sein:
@@ -671,7 +672,9 @@ Zugriffskontrolle in NoSQL Datenbanken
 
 - Die Zugriffskontrolle erfolgt durch interne Sicherheitsmodelle, wie zum Beispiel den Authentifizierungsmechanismus in MongoDB.  
 - Administratoren definieren, welche Benutzer und Rollen existieren und welche spezifischen Rechte ihnen zugewiesen werden.
-**Unterschied zu relationalen Datenbanken:**  
+
+**Unterschied zu relationalen Datenbanken:**
+
 - Relationale Datenbanken besitzen oft ein festes, tabellenbasiertes Rollenkonzept.  
 - NoSQL Datenbanken bieten mehr Flexibilität, um den verteilten und dynamischen Charakter moderner Anwendungen zu unterstützen.
 
