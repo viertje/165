@@ -138,10 +138,12 @@ Was sind die Anwendungsfälle für NoSQL Datenbanken?
 Wann brauche ich eine NoSQL Datenbank?
 --------------------------------------
 
-- Wenn die Datenmenge zu gross für eine relationale Datenbank ist
-- Wenn die Datenstruktur nicht festgelegt ist
-- Wenn die Daten schnell verarbeitet werden müssen
-- Wenn die Daten über mehrere Server verteilt werden müssen
+Wenn...
+
+- ...die Datenmenge zu gross für eine relationale Datenbank ist
+- ...die Datenstruktur nicht festgelegt ist
+- ...die Daten schnell verarbeitet werden müssen
+- ...die Daten über mehrere Server verteilt werden müssen
 
 Welche NoSQL Datenbanken eignen sich für welche Anwendungsfälle?
 ---------------------------------------------------------------
@@ -226,18 +228,22 @@ Ich muss verstehen, welche **Daten** gespeichert werden und wie sie **verarbeite
 Wann brauche ich eine NoSQL Datenbank?
 --------------------------------------
 
-- Wenn die Datenmenge zu gross für eine relationale Datenbank ist
-- Wenn die Datenstruktur nicht festgelegt ist
-- Wenn die Daten schnell verarbeitet werden müssen
-- Wenn die Daten über mehrere Server verteilt werden müssen
+Wenn...
+
+- ...die Datenmenge zu gross für eine relationale Datenbank ist
+- ...die Datenstruktur nicht festgelegt ist
+- ...die Daten schnell verarbeitet werden müssen
+- ...die Daten über mehrere Server verteilt werden müssen
 
 Wann brauche ich keine NoSQL Datenbank?
 --------------------------------------
 
-- Wenn die Datenstruktur festgelegt ist
-- Wenn die Datenmenge klein ist
-- Wenn die Datenbank nur auf einem Server betrieben wird
-- Wenn die Datenbank nur für Transaktionen verwendet wird
+Wenn...
+
+- ...die Datenstruktur festgelegt ist
+- ...die Datenmenge klein ist
+- ...die Datenbank nur auf einem Server betrieben wird
+- ...die Datenbank nur für Transaktionen verwendet wird
 
 ![nosqlvssql](/images/nosqlVSsql.png)
 
@@ -249,9 +255,6 @@ Verbesserungen vorschlagen
 | Optimierung der Datenstruktur     | Item 2Überprüfen, ob die Datenstruktur effizient ist und ob sie die Anforderungen des Projekts erfüllt     |
 | Performance-Optimierung     | Überprüfen, ob die Datenbank die erforderliche Leistung erbringt und ob sie optimiert werden kann.     |
 | Sicherheitsverbesserungen     | Überprüfen, ob die Datenbank ausreichend geschützt ist und ob zusätzliche Sicherheitsmassnahmen erforderlich sind.     |
-
-Nachweis
-========
 
 ## NoSQL Datenbanken implementieren
 
@@ -781,7 +784,7 @@ Wie kann ich ein Restore einer NoSQL Datenbank durchführen?
 Links
 ========
 
-> <https://n2ws.com/blog/database-backup>
+> https://n2ws.com/blog/database-backup
 
 ### E1F
 
