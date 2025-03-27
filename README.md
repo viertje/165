@@ -937,7 +937,7 @@ Queries in NoSQL Datenbanken
   - Abfragen werden in einer JSON-ähnlichen Struktur formuliert.  
   - Gängige Operatoren sind beispielsweise:
     - `$eq`: prüft auf Gleichheit.
-    - `$gt` / `$lt`: prüfen auf größer oder kleiner als einen bestimmten Wert.
+    - `$gt` / `$lt`: prüfen auf grösser oder kleiner als einen bestimmten Wert.
     - `$in`: prüft, ob ein Wert in einer Liste enthalten ist.
 - **Beispiel einer Query:**  
   Um alle Dokumente zu finden, in denen das Feld `status` den Wert `"active"` hat, kann folgende Query verwendet werden:
@@ -953,7 +953,7 @@ Projections in NoSQL Datenbanken
 - **Definition und Zweck:**  
   Projections dienen dazu, die zurückgegebenen Felder einer Query zu bestimmen. Sie helfen, nur relevante Daten abzurufen und reduzieren somit die Menge der übertragenen Informationen.
 - **Funktionsweise:**  
-  - Durch Angabe einer Projection kann man Felder ein- oder ausschließen.
+  - Durch Angabe einer Projection kann man Felder ein- oder ausschliessen.
   - Typischerweise wird eine 1 für Inklusion und eine 0 für Exklusion verwendet.
 - **Beispiel einer Projection:**  
   Um bei der obigen Query nur die Felder `name` und `status` zurückzugeben, kann die Projection wie folgt ergänzt werden:
@@ -973,7 +973,7 @@ Zusammenspiel von Queries und Projections
 
 
 - **Abfrage und Ergebnisoptimierung:**  
-  Zunächst filtert die Query anhand der definierten Kriterien die relevanten Dokumente heraus. Anschließend wird mit der Projection bestimmt, welche Felder der gefundenen Dokumente im Ergebnis enthalten sein sollen.
+  Zunächst filtert die Query anhand der definierten Kriterien die relevanten Dokumente heraus. Anschliessend wird mit der Projection bestimmt, welche Felder der gefundenen Dokumente im Ergebnis enthalten sein sollen.
 - **Vorteile:**  
   - **Effizienz:** Es werden nur die benötigten Daten abgerufen, was Netzwerk- und Verarbeitungsressourcen spart.
   - **Übersichtlichkeit:** Die Ergebnisse enthalten nur die für die Anwendung relevanten Informationen.
@@ -986,7 +986,7 @@ Operatoren und Syntaxelemente
 **Operatoren:**  
 
 - `$eq`: Gleichheit
-- `$gt`, `$lt`: Größer oder kleiner als
+- `$gt`, `$lt`: Grösser oder kleiner als
 - `$in`: Wert in Liste
 - `$and`, `$or`: Logische Verknüpfungen
 
