@@ -117,11 +117,9 @@ Nachweis
 Fragenstellung und Lernziele
 ==============
 
-- Was sind die Anwendungsfälle für NoSQL Datenbanken?
-- Wann brauche ich eine NoSQL Datenbank?
-- Welche NoSQL Datenbanken eignen sich für welche Anwendungsfälle?
-- Ich kenne die Vor- und Nachteile von NoSQL Datenbanken.
-- Ich kann 3 NoSQL Datenbanken nennen und ihre Anwendungsfälle erläutern.
+- **Was sind die Anwendungsfälle für NoSQL Datenbanken?** Ich kann Anwendungsfälle für NoSQL Datenbanken nennen.
+- **Wann brauche ich eine NoSQL Datenbank?** Ich kann die Anwendungsfälle für NoSQL Datenbanken erläutern.
+- **Welche NoSQL Datenbanken eignen sich für welche Anwendungsfälle?** Ich kann 3 NoSQL Datenbanken nennen und ihre Anwendungsfälle erläutern.
 
 Umsetzung
 =========
@@ -944,7 +942,7 @@ Queries in NoSQL Datenbanken
 
 - **Beispiel einer Query:**  
   Um alle Dokumente zu finden, in denen das Feld `status` den Wert `"active"` hat, kann folgende Query verwendet werden:
-  
+
   ```json
   {
     "status": { "$eq": "active" }
