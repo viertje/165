@@ -671,11 +671,55 @@ Nachweis
 1. **Praktische Übung:**  
    Importiere eine JSON- oder CSV-Datei in eine NoSQL Datenbank (z. B. MongoDB) mittels `mongoimport` oder einem GUI-Tool.
 
+Testdb
+---------
+
+```dockerfile
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:7
+    container_name: test_mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+      - ./example.csv:/tmp/example.csv:ro
+    restart: unless-stopped
+
+volumes:
+  mongo_data:
+```
+
+```bash
+docker-compose up -d
+```
+
+```bash
+docker exec test_mongo mongoimport `
+  --db testdb `
+  --collection people `
+  --type csv `
+  --headerline `
+  --file /tmp/example.csv
+```
+
+Sample CSV
+---------
+
 ```csv
 name,age,city
 Alice,30,New York
 Bob,25,San Francisco
 Charlie,35,Berlin
+```
+
+```bash
+docker exec -it test_mongo mongosh
+# in der MongoDB Shell
+use testdb
+db.people.find().pretty()
 ```
 
 ![Import Result](images/import_result.png)
