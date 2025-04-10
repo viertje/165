@@ -603,8 +603,11 @@ Beispiel: Import einer JSON-Datei mit mongoimport
 
 2. **Ausführung:**  
   Führen Sie folgenden Befehl aus, um die Daten in die gewünschte Datenbank und Collection zu übernehmen:  
+
 ```bash
+
 mongoimport --db exampleDB --collection documents --file data.json --jsonArray
+
 ```
 
 Validierung des Datenimports
