@@ -207,11 +207,13 @@ Quellen
 Fragenstellung und Lernziele
 ==============
 
-- Wie kann ich den Einsatz einer NoSQL Datenbank kritisch hinterfragen?
-- Welche Verbesserungen kann ich vorschlagen?
+- Wie kann ich den Einsatz einer NoSQL Datenbank kritisch hinterfragen? 
 
-- Ich kann den Einsatz einer NoSQL Datenbank kritisch hinterfragen.
-- Ich kann Verbesserungen für den Einsatz einer NoSQL Datenbank vorschlagen.
+   - **Ich kann den Einsatz einer NoSQL Datenbank kritisch hinterfragen.**
+
+- Welche Verbesserungen kann ich vorschlagen? 
+
+    - **Ich kann Verbesserungen vorschlagen.**
 
 Umsetzung
 =========
@@ -250,7 +252,7 @@ Verbesserungen vorschlagen
 
 | Verbesserung   | Beschreibung   |
 | :--------- | :--------- |
-| Optimierung der Datenstruktur     | Item 2Überprüfen, ob die Datenstruktur effizient ist und ob sie die Anforderungen des Projekts erfüllt     |
+| Optimierung der Datenstruktur     | Überprüfen, ob die Datenstruktur effizient ist und ob sie die Anforderungen des Projekts erfüllt     |
 | Performance-Optimierung     | Überprüfen, ob die Datenbank die erforderliche Leistung erbringt und ob sie optimiert werden kann.     |
 | Sicherheitsverbesserungen     | Überprüfen, ob die Datenbank ausreichend geschützt ist und ob zusätzliche Sicherheitsmassnahmen erforderlich sind.     |
 
