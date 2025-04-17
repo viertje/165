@@ -881,6 +881,46 @@ Die Umsetzung erfolgt typischerweise durch die Definition von Rollen, die spezif
 
 Die korrekte Funktionsweise der Berechtigungen kann durch gezielte Prüfungen und Tests validiert werden. Dazu gehört beispielsweise das Überprüfen, ob ein Benutzer nur auf die ihm erlaubten Ressourcen zugreifen kann.
 
+Zugriffsberechtigungen in einer NoSQL-Datenbank sind essenziell, um Datenzugriffe zu kontrollieren und sicherzustellen, dass Benutzer nur die für ihre Rolle erforderlichen Rechte erhalten. MongoDB – als eine der populärsten NoSQL-Datenbanken – setzt dabei auf ein rollenbasiertes Berechtigungssystem (RBAC – Role-Based Access Control).
+
+Eine **Rolle (Role)** ist eine definierte Sammlung von Rechten (Privilegien), die bestimmte Aktionen (z. B. Lesen, Schreiben, Löschen) auf einer bestimmten Ressource (Datenbank, Collection) erlauben. Diese Rollen können vordefiniert oder benutzerdefiniert sein und werden anschließend einzelnen Benutzern zugewiesen.
+
+Methoden zur Definition und Anwendung von Rollen und Berechtigungen
+-------------------
+
+**Manuell über die Shell (z. B. `mongosh`)**
+
+- Direktes Ausführen von Kommandos wie `db.createRole()` und `db.createUser()`.
+- Flexibel und vollständig, aber erfordert gute Kenntnisse der MongoDB-Syntax.
+- Ideal für Administratoren, Skripting oder Testumgebungen.
+
+**Vordefinierte Rollen verwenden**
+
+- MongoDB bringt eine Reihe **vordefinierter Rollen** mit, z. B.:
+  - `read`, `readWrite`, `dbAdmin`, `userAdmin`, `clusterAdmin` usw.
+- Diese decken typische Nutzungsszenarien ab und sparen Aufwand bei der Rollenerstellung.
+- Vorteil: schnell einsetzbar, sicher getestet.
+- Nachteil: weniger granular – z. B. `readWrite` erlaubt sofort alle Schreiboperationen.
+
+**Benutzerdefinierte Rollen (`db.createRole`)**
+
+- Erlaubt fein abgestimmte Rechte, z. B. nur `find` und `aggregate` auf eine bestimmte Collection.
+- Ressourcen können auf Datenbank- oder Collection-Ebene eingeschränkt werden.
+- Sehr gut geeignet für Sicherheitsanforderungen in produktiven Umgebungen.
+
+**Rollen- und Benutzerverwaltung über GUI-Tools**
+
+- Tools wie **MongoDB Compass** oder **Mongo Express** ermöglichen das Erstellen und Zuweisen von Rollen über eine grafische Oberfläche.
+- Besonders nützlich für Teams ohne tiefe MongoDB-Kenntnisse.
+- Einschränkung: Nicht alle Optionen sind über die GUI zugänglich (z. B. komplexe Privilegienfilter).
+
+**Automatisierung durch Skripte oder Infrastructure-as-Code**
+
+- Einsatz von Setup-Skripten (`init.js`), Docker-Volumen oder Konfigurationsmanagement (Ansible, Terraform).
+- Ideal für DevOps und CI/CD: Rollen und Benutzer werden bei jedem Deployment automatisch eingerichtet.
+- Vorteil: Wiederholbarkeit, Versionskontrolle.
+- Nachteil: Initial höherer Aufwand zur Erstellung der Skripte.
+
 Beispiel: Erstellung und Zuweisung einer Rolle in MongoDB
 --------------------
 
