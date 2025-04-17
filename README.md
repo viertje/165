@@ -790,7 +790,7 @@ Dieses Beispiel zeigt, wie ein Benutzer mit einem Passwort und einer Rolle in de
 db.createUser({
   user: "alice",
   pwd: "sicheresPasswort123",
-  roles: [{ role: "readWrite", db: "exampleDB" }]
+  roles: [{ role: "readWrite", db: "testdb" }]
 });
 
 ```
@@ -812,9 +812,9 @@ Eine Rolle mit Lese- und Schreibrechten könnte folgendermassen aussehen:
 ```json
 {
   "role": "readWrite",
-  "db": "exampleDB",
+  "db": "testdb",
   "privileges": [
-    { "resource": { "db": "exampleDB", "collection": "documents" }, "actions": ["find", "insert", "update", "remove"] }
+    { "resource": { "db": "testdb", "collection": "documents" }, "actions": ["find", "insert", "update", "remove"] }
   ],
   "roles": []
 }
@@ -855,16 +855,180 @@ Der Prozess, der festlegt, welche Operationen ein authentifizierter Benutzer aus
 
 ### D1F
 
-> Ich kann vordefinierte Zugriffsberechtigungen in einer NoSQL Datenbank umsetzen. (z. B. Rollen)
+> Ich kann vordefinierte Zugriffsberechtigungen in einer NoSQL Datenbank umsetzen.
 
 Fragenstellung und Lernziele
 ==============
+- **Welche Methoden gibt es, um vordefinierte Rollen und Berechtigungen in einer NoSQL Datenbank zu definieren und anzuwenden?** Ich kann verschiedene Ansätze aufzählen und kurz beschreiben.  
+- **Wie wird die Einrichtung von Rollen und Nutzern praktisch umgesetzt?** Ich kann den Einsatz von Shell‑Befehlen und GUI‑Tools erläutern.  
+- **Welche Formate und Tools werden für die Definition von Rollen genutzt?** Ich kann die Nutzung von JSON‑Dateien und programmgesteuerten Skripten erklären.  
+- **Wie kann man die korrekte Funktionsweise der Berechtigungen validieren?** Ich kann Prüf‑Abfragen und Tests beschreiben, um zu verifizieren, dass die Berechtigungen greifen.
 
 Umsetzung
 =========
+Zugriffsberechtigungen in einer NoSQL-Datenbank sind essenziell, um die Sicherheit und Integrität der Daten zu gewährleisten. Sie ermöglichen es, den Zugriff auf Datenbankressourcen gezielt zu steuern und sicherzustellen, dass Benutzer nur die Rechte erhalten, die sie für ihre Aufgaben benötigen. 
+
+Die Umsetzung erfolgt typischerweise durch die Definition von Rollen, die spezifische Berechtigungen bündeln, und die Zuweisung dieser Rollen an Benutzer. Dabei gibt es verschiedene Methoden, um diese Zugriffsberechtigungen zu implementieren:
+
+- **Shell‑Befehle:**  
+  Über die Kommandozeile der Datenbank (z. B. mongo Shell) können Rollen mit `db.createRole()` definiert und Nutzern mit `db.createUser()` zugewiesen werden. Dies ist besonders nützlich für Administratoren, die direkten Zugriff auf die Datenbank haben.
+
+- **GUI‑basierte Tools:**  
+  Tools wie **MongoDB Compass** oder **Mongo Express** bieten eine benutzerfreundliche Oberfläche, um Rollen und Berechtigungen zu verwalten. Diese Methode eignet sich gut für Benutzer, die weniger Erfahrung mit der Kommandozeile haben.
+
+- **Programmgesteuerte Einrichtung:**  
+  Mit Skripten in Programmiersprachen wie JavaScript (Node.js) oder Python können Rollen und Benutzer automatisiert erstellt werden. Dies ist besonders hilfreich in DevOps-Umgebungen, in denen wiederholbare Prozesse erforderlich sind.
+
+Die korrekte Funktionsweise der Berechtigungen kann durch gezielte Prüfungen und Tests validiert werden. Dazu gehört beispielsweise das Überprüfen, ob ein Benutzer nur auf die ihm erlaubten Ressourcen zugreifen kann.
+
+Beispiel: Erstellung und Zuweisung einer Rolle in MongoDB
+--------------------
+
+Erstelle eine Rolle `readOnlyExample`, die ausschließlich Leserechte für `testdb` hat.  
+Erstelle anschließend den Benutzer `readUser`, weise ihm diese Rolle zu und überprüfe, dass:
+
+- Lesender Zugriff funktioniert ✅  
+- Schreibender Zugriff verweigert wird ❌
+
+Vorbereitung
+------------
+
+Container:
+
+```yaml
+services:
+  mongodb:
+    image: mongo:8.0
+    container_name: test_mongo
+    command: ["mongod", "--auth"]
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+      - ./example.csv:/tmp/example.csv:ro
+    restart: unless-stopped
+
+volumes:
+  mongo_data:
+```
+
+Data:
+
+```csv
+name,age,city
+Alice,30,New York
+Bob,25,San Francisco
+Charlie,35,Berlin  
+```
+  
+Import:
+
+```powershell
+docker exec test_mongo mongoimport `
+  --username root `
+  --password example `
+  --authenticationDatabase admin `
+  --db testdb `
+  --collection people `
+  --type csv `
+  --headerline `
+  --file /tmp/example.csv
+```
+
+Ausführung
+------------
+
+**1. Rolle erstellen:**
+Verbinde dich mit der Admin-Datenbank:
+
+```bash
+docker exec -it test_mongo mongosh
+```
+
+Dann führe in der `testdb` aus:
+
+```bash
+use testdb
+
+db.createRole({
+  role: "readOnlyExample",
+  privileges: [
+   {
+    resource: { db: "testdb", collection: "" },
+    actions: ["find"]
+   }
+  ],
+  roles: []
+})
+```
+
+**2. Benutzer erstellen und Rolle zuweisen:**
+
+```js
+db.createUser({
+  user: "readUser",
+  pwd: "readonlypass",
+  roles: [{ role: "readOnlyExample", db: "testdb" }]
+})
+```
+
+**3. Test: Leserechte prüfen**
+
+Anmelden als `readUser`:
+
+```bash
+docker exec -it test_mongo mongosh --username readUser --password readonlypass --authenticationDatabase testdb --eval "use testdb"
+```
+
+Dann:
+
+```js
+use testdb
+db.people.find().pretty()
+```
+
+✅ Ausgabe sollte Dokumente anzeigen, falls vorhanden.
+
+**4. Test: Schreibrechte prüfen**
+
+```js
+db.people.insert({
+  name: "Kate ",
+  age: 30,
+  city: "Los Angeles"
+});
+```
+
+❌ Fehlermeldung wie z. B.:
+
+```
+WriteError: not authorized on testdb to execute command
+```
+
+Dies zeigt, dass nur Leserechte bestehen und die Rolle korrekt funktioniert.
+
+
+Wichtige Begriffe und Strukturen
+---------------------
+- **Rolle (Role):** Vordefinierte Sammlung von Privilegien, z. B. Lese‑ oder Schreibrechte.  
+- **Privileg (Privilege):** Einzelne Berechtigung (z. B. `find`, `insert`), zugewiesen für eine Datenbank und Collection.  
+- **Authentifizierung (Authentication):** Verifizierung der Nutzeridentität (z. B. Passwort).  
+- **Autorisierung (Authorization):** Prüfung, ob ein authentifizierter Nutzer eine Aktion ausführen darf.
 
 Nachweis
 ========
+
+**Praktische Übung:**  
+Erstelle eine Rolle mit spezifischen Rechten und weise sie einem Benutzer zu.
+
+![Create Role Nachweis](images/create_role_nachweis.png)
+
+Teste die Rolle, indem du versuchst, Daten zu lesen und zu schreiben. Stelle sicher, dass die Leserechte funktionieren und Schreibrechte verweigert werden.
+
+![Test Role Nachweis](images/test_role_nachweis.png)
 
 ### D1E
 
