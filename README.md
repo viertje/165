@@ -396,9 +396,11 @@ Nachweis
 Fragenstellung und Lernziele
 ==============
 
-Wie kann ich ein vorgegebenes Datenmodell in einer NoSQL-Datenbank umsetzen? **Ich kann ein vorgegebenes Datenmodell in einer NoSQL-Datenbank umsetzen.**
-Wie erstelle ich eine NoSQL-Datenbank? **Ich kann eine NoSQL-Datenbank erstellen.**
-Wie speichere ich Daten in einer NoSQL-Datenbank? **Ich kann Daten in einer NoSQL-Datenbank speichern.**
+- Wie kann ich ein vorgegebenes Datenmodell in einer NoSQL-Datenbank umsetzen? **Ich kann ein vorgegebenes Datenmodell in einer NoSQL-Datenbank umsetzen.**
+
+- Wie erstelle ich eine NoSQL-Datenbank? **Ich kann eine NoSQL-Datenbank erstellen.**
+
+- Wie speichere ich Daten in einer NoSQL-Datenbank? **Ich kann Daten in einer NoSQL-Datenbank speichern.**
 
 Umsetzung
 =========
