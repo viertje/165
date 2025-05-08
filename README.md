@@ -411,6 +411,8 @@ Um ein vorgegebenes Datenmodell in einer NoSQL-Datenbank umzusetzen, sind folgen
 
 Das Datenmodell sieht wie folgt aus:
 
+![erd](images/erd.png)
+
 ```json users
 {
   "_id": ObjectId,
