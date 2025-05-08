@@ -664,7 +664,7 @@ Wichtige Begriffe und Strukturen
   Mechanismen, um während des Importprozesses auftretende Probleme zu identifizieren und zu beheben.
 
 Der Import von Daten in eine NoSQL Datenbank ist ein zentraler Prozess, der über unterschiedliche Methoden erfolgen kann.  
-Ob über CLI-Tools, grafische Anwendungen oder programmatische Ansätze – durch den Einsatz standardisierter Datenformate wie JSON oder CSV und einer anschließenden Validierung kann sichergestellt werden, dass die Datenübernahme effizient und fehlerfrei erfolgt.
+Ob über CLI-Tools, grafische Anwendungen oder programmatische Ansätze – durch den Einsatz standardisierter Datenformate wie JSON oder CSV und einer anschliessenden Validierung kann sichergestellt werden, dass die Datenübernahme effizient und fehlerfrei erfolgt.
 
 Nachweis
 ========
@@ -883,7 +883,7 @@ Die korrekte Funktionsweise der Berechtigungen kann durch gezielte Prüfungen un
 
 Zugriffsberechtigungen in einer NoSQL-Datenbank sind essenziell, um Datenzugriffe zu kontrollieren und sicherzustellen, dass Benutzer nur die für ihre Rolle erforderlichen Rechte erhalten. MongoDB – als eine der populärsten NoSQL-Datenbanken – setzt dabei auf ein rollenbasiertes Berechtigungssystem (RBAC – Role-Based Access Control).
 
-Eine **Rolle (Role)** ist eine definierte Sammlung von Rechten (Privilegien), die bestimmte Aktionen (z. B. Lesen, Schreiben, Löschen) auf einer bestimmten Ressource (Datenbank, Collection) erlauben. Diese Rollen können vordefiniert oder benutzerdefiniert sein und werden anschließend einzelnen Benutzern zugewiesen.
+Eine **Rolle (Role)** ist eine definierte Sammlung von Rechten (Privilegien), die bestimmte Aktionen (z. B. Lesen, Schreiben, Löschen) auf einer bestimmten Ressource (Datenbank, Collection) erlauben. Diese Rollen können vordefiniert oder benutzerdefiniert sein und werden anschliessend einzelnen Benutzern zugewiesen.
 
 Methoden zur Definition und Anwendung von Rollen und Berechtigungen
 -------------------
@@ -924,8 +924,8 @@ Methoden zur Definition und Anwendung von Rollen und Berechtigungen
 Beispiel: Erstellung und Zuweisung einer Rolle in MongoDB
 --------------------
 
-Erstelle eine Rolle `readOnlyExample`, die ausschließlich Leserechte für `testdb` hat.  
-Erstelle anschließend den Benutzer `readUser`, weise ihm diese Rolle zu und überprüfe, dass:
+Erstelle eine Rolle `readOnlyExample`, die ausschliesslich Leserechte für `testdb` hat.  
+Erstelle anschliessend den Benutzer `readUser`, weise ihm diese Rolle zu und überprüfe, dass:
 
 - Lesender Zugriff funktioniert ✅  
 - Schreibender Zugriff verweigert wird ❌
