@@ -1512,11 +1512,219 @@ Nachweis
 Fragenstellung und Lernziele
 ==============
 
+
+In dieser Uebung geht es darum, eine minimalistische API in TypeScript und Express zu erstellen, die eine Verbindung zu einer MongoDB herstellt. Dabei sollen folgende Lernziele erreicht werden:
+
+- Einrichten eines Docker-Containers mit aktivierter Authentifizierung
+- Importieren von CSV-Daten in eine NoSQL-Datenbank
+- Konfigurieren einer Datenbank (testdb) und einer Collection (people) mit den Feldern name, age, city
+- Implementieren und Testen von REST-Endpunkten (GET und POST)
+- Verifizieren von Lese- und Schreibrechten anhand eines Read-Only-Benutzers
+
 Umsetzung
 =========
 
+Container Setup
+---------------------
+
+```yaml
+services:
+  mongodb:
+    image: mongo:8.0
+    container_name: products
+    command: ["mongod", "--auth"]
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: secret123
+    ports:
+      - "27018:27017"
+    volumes:
+      - ./mongo-data:/data/db
+      - ./products.csv:/tmp/products.csv:ro
+    restart: unless-stopped
+```
+
+```bash
+docker-compose up -d
+```
+
+```csv
+productId,name,category,price
+P001,Smartphone,Electronics,699.99
+P002,Laptop,Electronics,1299.00
+P003,Desk Chair,Furniture,149.50
+P004,Coffee Mug,Kitchen,12.99
+```
+
+Import CSV-Daten in MongoDB:
+
+```bash
+docker exec products mongoimport `
+  --username admin `
+  --password secret123 `
+  --authenticationDatabase admin `
+  --db productsdb `
+  --collection products `
+  --type csv `
+  --headerline `
+  --file /tmp/products.csv
+```
+
+Typescript API
+---------------------
+
+Wir wollen folgende Endpunkte implementieren:
+
+```bash
+GET /people - liefert alle Dokumente
+
+GET /people/:id — liefert ein Dokument per ObjectId
+
+POST /people — legt ein neues Dokument an
+```
+
+Projektsetup
+---------------------
+
+```bash
+pnpm init -y
+pnpm add express mongodb dotenv
+pnpm add -D typescript @types/express @types/node
+pnpm tsc --init
+```
+
+`tsconfig.json` Datei erstellen:
+
+```json
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "CommonJS",
+    "rootDir": "src",
+    "outDir": "dist",
+    "strict": true,
+    "esModuleInterop": true
+  }
+}
+```
+
+`.env` Datei erstellen:
+
+```bash
+MONGO_URI=mongodb://admin:secret123@localhost:27018
+DB_NAME=productsdb
+PORT=3001
+```
+
+API-Code:
+
+
+```typescript
+import express, { Request, Response, NextFunction } from 'express';
+import { MongoClient, ObjectId } from 'mongodb';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const uri = process.env.MONGO_URI;
+const dbName = process.env.DB_NAME || 'testdb';
+const port = Number(process.env.PORT || 3000);
+
+if (!uri) {
+  console.error('Fehler: MONGO_URI nicht gesetzt');
+  process.exit(1);
+}
+
+const client = new MongoClient(uri, {});
+
+async function main() {
+  try {
+    await client.connect();
+    console.log('✅ Verbunden mit MongoDB');
+
+    const db = client.db(dbName);
+    const people = db.collection('people');
+
+    const app = express();
+    app.use(express.json());
+
+    // GET /people – alle Datensätze ausgeben
+    app.get('/people', async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const docs = await people.find().toArray();
+        res.json(docs);
+      } catch (err) {
+        next(err);
+      }
+    });
+
+    // GET /people/:id – einzelnes Dokument per ID
+    app.get('/people/:id', async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const { id } = req.params;
+        if (!ObjectId.isValid(id)) {
+          return res.status(400).json({ error: 'Ungültige ID' });
+        }
+        const doc = await people.findOne({ _id: new ObjectId(id) });
+        if (!doc) {
+          return res.status(404).json({ error: 'Nicht gefunden' });
+        }
+        res.json(doc);
+      } catch (err) {
+        next(err);
+      }
+    });
+
+    // POST /people – neuen Datensatz anlegen
+    app.post('/people', async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const { name, age, city } = req.body;
+        if (!name || typeof age !== 'number' || !city) {
+          return res.status(400).json({ error: 'Fehlende Felder oder falscher Typ' });
+        }
+        const result = await people.insertOne({ name, age, city });
+        res.status(201).json({ insertedId: result.insertedId });
+      } catch (err) {
+        next(err);
+      }
+    });
+
+    // globale Error-Middleware
+    app.use((err: Error, req: Request, res: Response, _next: NextFunction) => {
+      console.error(err);
+      res.status(500).json({ error: 'Interner Serverfehler' });
+    });
+
+    app.listen(port, () => {
+      console.log(`🚀 Server läuft auf http://localhost:${port}`);
+    });
+  } catch (err) {
+    console.error('Verbindungsfehler:', err);
+    process.exit(1);
+  }
+}
+
+main();
+```
+
+`package.json` Skripts ergänzen:
+
+```json
+// innerhalb von "scripts":
+"build": "tsc",
+"start": "node dist/index.js"
+```
+
+```bash
+pnpm build
+pnpm start
+```
+
 Nachweis
 ========
+
+**Praktische Übung:**
+![Products](images/curl_products_list.png)
 
 ### G1E
 
