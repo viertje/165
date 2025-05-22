@@ -1276,11 +1276,101 @@ Links
 Fragenstellung und Lernziele
 ==============
 
+In dieser Übung lernt man, wie man eine MongoDB-Datenbank sicher sichert und wiederherstellt. Folgende Lernziele stehen im Fokus:
+
+- Ein vollständiges Backup mit mongodump durchzuführen
+- Die Datenbank mit mongorestore wiederherzustellen
+- Die Datenintegrität nach dem Restore zu verifizieren
+
 Umsetzung
 =========
 
+1. **MongoDB-Container mit Authentifizierung aufsetzen:**
+
+Du kannst für diese Übung den Container aus dem Kaptitel [G1F - Anbindung and eine NoSQL Datenbank](#g1f) verwenden.
+
+Falls du den Container nicht mehr hast, folge dem Setup Guide aus dem verlinkten Kapitel.
+
+2. **Backup der Datenbank erstellen:**
+
+Mit diesem Befehl wird ein Verzeichnis /backup/productsdb_backup im Container (und auf dem Host unter /backup) angelegt:
+
+```bash
+docker exec products mongodump `
+  --username admin `
+  --password secret123 `
+  --authenticationDatabase admin `
+  --db productsdb `
+  --out /backup/productsdb_backup
+```
+
+Logge dich in den Container ein und überprüfe, ob das Backup erfolgreich erstellt wurde:
+
+```bash
+docker exec -it products bash
+ls -l /backup
+```
+
+3. **Datenbank löschen:**
+
+```bash
+docker exec products mongosh `
+  --username admin `
+  --password secret123 `
+  --authenticationDatabase admin `
+  --eval 'db.getSiblingDB("productsdb").dropDatabase()'
+```
+
+Überprüfe, ob die Datenbank gelöscht wurde:
+
+```bash
+docker exec products mongosh `
+  --username admin `
+  --password secret123 `
+  --authenticationDatabase admin `
+  --eval 'db.getSiblingDB("productsdb").products.find().toArray()'
+```
+
+4. **Datenbank wiederherstellen:**
+
+```bash
+docker exec products mongorestore `
+  --username admin `
+  --password secret123 `
+  --authenticationDatabase admin `
+  --drop `
+  /backup/productsdb_backup
+```
+
+Die Datenbank sollte nun wiederhergestellt sein. Überprüfe dies mit:
+
+```bash
+docker exec products mongosh `
+  --username admin `
+  --password secret123 `
+  --authenticationDatabase admin `
+  --eval 'db.getSiblingDB("productsdb").products.find().toArray()'
+```
+
 Nachweis
 ========
+
+**Datenbank Backup:**
+
+![Datenbank backup](images/e1f/backup.png)
+
+**Datenbank löschen:**
+
+![Datenbank löschen](images/e1f/drop_db.png)
+
+**Überprüfen der Löschung:**
+![Überprüfen der Löschung](images/e1f/verify.png)
+
+**Datenbank wiederherstellen:**
+![Datenbank wiederherstellen](images/e1f/restore.png)
+
+**Datenbank wiederherstellen:**
+![Bestätigen der Wiederherstellung](images/e1f/proof.png)
 
 ### E1E
 
@@ -1549,7 +1639,7 @@ services:
 Container starten:
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 CSV-Daten:
