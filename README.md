@@ -1527,6 +1527,8 @@ Umsetzung
 Container Setup
 ---------------------
 
+Docker-compose Datei erstellen:
+
 ```yaml
 services:
   mongodb:
@@ -1544,9 +1546,13 @@ services:
     restart: unless-stopped
 ```
 
+Container starten:
+
 ```bash
 docker-compose up -d
 ```
+
+CSV-Daten:
 
 ```csv
 productId,name,category,price
