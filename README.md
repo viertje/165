@@ -572,7 +572,8 @@ Designentscheidungen: Denormalisierung, Einbettung vs. Referenzierung
 
 Basierend auf den Anforderungen werden Entscheidungen über die Datenstruktur getroffen.
 
-**Denormalisierung**
+Denormalisierung
+------------------
 
 Hierbei werden redundante Datenkopien gespeichert, um Lesezugriffe zu beschleunigen, indem Joins vermieden werden.
 
@@ -762,11 +763,6 @@ Skalierbarkeit
 - Dokumentgrösse: Durch die Referenzierung der Kommentare bleiben die `posts`-Dokumente relativ klein, was positiv für die Performance und die Vermeidung von Grössenlimits ist.
 - Lese-Skalierbarkeit: Häufige Leseoperationen (Post anzeigen) profitieren von den Denormalisierungen und der Trennung der Sammlungen.
 - Schreib-Skalierbarkeit: Schreibvorgänge sind ebenfalls gut skalierbar. Die Aktualisierung denormalisierter Daten (z.B. wenn sich ein username ändert) erfordert mehr Aufwand (Aktualisierung in `users` und in allen zugehörigen `posts` und `comments`). Dies ist ein bekannter Trade-off. Für Anwendungsfälle, in denen Benutzernamen sich selten ändern, ist dies oft akzeptabel. Wenn sie sich häufig ändern, könnte man erwägen, Benutzernamen nicht in Posts/Kommentaren zu denormalisieren und stattdessen bei der Anzeige separate Lookups durchzuführen oder die Aktualisierung über Hintergrundprozesse zu steuern.
-
-Zusammenfassung
-========
-
-Zusammenfassend lässt sich sagen, dass ein gutes NoSQL-Datenmodell die spezifischen Anforderungen und Abfragemuster der Anwendung berücksichtigt. Es balanciert Denormalisierung und Referenzierung, um eine hohe Leseleistung und gute Skalierbarkeit zu erreichen, wobei die Komplexität von Schreibvorgängen und die Datenkonsistenz sorgfältig abgewogen werden müssen. 
 
 ## Daten in NoSQL Datenbank eintragen
 
