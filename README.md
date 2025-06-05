@@ -1348,14 +1348,146 @@ Vorteile von Skalierung und Replikation
 
 > Ich kann für eine NoSQL Datenbank eine Replikation anwenden.
 
-Fragenstellung und Lernziele
+Lernziele
 ==============
+
+- Replikation in NoSQL einer Datenbanken verstehen.
+- Replikation in NoSQL einer Datenbanken anwenden.
+- Replikation in NoSQL einer Datenbanken testen.
 
 Umsetzung
 =========
 
+Replikation verstehen
+---------------------
+
+Replikation ist der Prozess, bei dem Daten von einem Knoten (Master) auf einen oder mehrere andere Knoten (Replikate) kopiert werden. Dies geschieht in der Regel in Echtzeit oder nahezu in Echtzeit, um sicherzustellen, dass alle Knoten über die aktuellsten Daten verfügen.
+
+Replikation anwenden mit MongoDB
+--------------------
+
+1. **Erstellen eines Replica Sets**:  
+   Ein Replica Set ist eine Gruppe von MongoDB-Instanzen, die dieselben Daten enthalten. Um ein Replica Set zu erstellen, müssen mindestens drei Knoten vorhanden sein.
+   Repilca Set ist eine Primary and Replica replication, das heisst, dass ein Knoten als primär fungiert und die anderen Knoten als Replikate fungieren.
+
+2. **Konfigurieren der Knoten**:  
+   Jeder Knoten im Replica Set muss konfiguriert werden, um sicherzustellen, dass er als Replikat oder primärer Knoten fungiert.
+
+3. **Starten des Replica Sets**:
+
+    Um das Replica Set zu starten, den Befehl `rs.initiate()` in der MongoDB-Shell verwenden.
+
+4. **Überprüfen des Replica Sets**:
+
+    Den Befehl `rs.status()` verwenden, um den Status des Replica Sets zu überprüfen und sicherzustellen, dass alle Knoten korrekt verbunden sind.
+
+5. **Testen der Replikation**:
+    Daten in den primären Knoten einfügen und überprüfen, ob sie auf den Replikaten verfügbar sind.
+
+
+Umsetzung
+=========
+
+Docker-Container für MongoDB Replica Set erstellen
+
+```bash
+
+yml
+services:
+  mongo1:
+    image: mongo
+    container_name: mongo1
+    ports:
+      - "27017:27017"
+    command: ["mongod", "--replSet", "rs0"]
+  
+  mongo2:
+    image: mongo
+    container_name: mongo2
+    ports:
+      - "27018:27017"
+    command: ["mongod", "--replSet", "rs0"]
+  
+  mongo3:
+    image: mongo
+    container_name: mongo3
+    ports:
+      - "27019:27017"
+    command: ["mongod", "--replSet", "rs0"]
+
+```
+
+Verbindung zu mongo1
+
+```bash
+docker exec -it mongo1 mongosh
+```
+
+Replica Set initialisieren
+
+```bash
+rs.initiate({
+  _id: "rs0",
+  members: [
+    { _id: 0, host: "mongo1:27017" },
+    { _id: 1, host: "mongo2:27017" },
+    { _id: 2, host: "mongo3:27017" }
+  ]
+})
+```
+Replica Set überprüfen
+
+```bash
+rs.status()
+```
+
+Master Knoten bestätigen
+
+```bash
+rs.isMaster().ismaster
+```
+Daten in den primären Knoten einfügen
+
+```bash
+use testdb
+db.test.insertOne({ message: "replica set test" })
+```
+
+Daten auf dem Replikat überprüfen
+
+```bash
+docker exec -it mongo2 mongosh
+
+db.getMongo().setReadPref("secondary")
+
+use testdb
+db.test.find()
+```
+Erwartetes Ergebnis
+
+```json
+{ _id: ObjectId(...), message: "replica set test" }
+```
+
 Nachweis
 ========
+
+Replica Set initialisieren
+--------------------------
+![alt-text](images/f1f/initiateSet.png)
+
+Status Check
+--------------------------
+![alt-text](images/f1f/statusCheck.png)
+
+Daten in den primären Knoten einfügen
+---------------------------
+![alt-text](images/f1f/injectDataInMaster.png)
+
+Daten auf dem Replikat überprüfen
+---------------------------
+![alt-text](images/f1f/checkSecondaryForData.png)
+
 
 ### F1E
 
