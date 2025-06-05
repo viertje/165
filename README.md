@@ -1480,9 +1480,8 @@ Umsetzung
 
 Docker-Container für MongoDB Replica Set erstellen
 
-```bash
+```yml
 
-yml
 services:
   mongo1:
     image: mongo
