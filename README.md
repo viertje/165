@@ -510,6 +510,145 @@ NoSQL-Datenbanken wie MongoDB verwenden eine flexible, schemalose Struktur, die 
 
 Ein Datenmodell umzusetzen ist daher ein einfacher Prozess, der es ermöglicht, Daten in einer NoSQL-Datenbank zu speichern und abzurufen. Die Flexibilität und Skalierbarkeit von NoSQL-Datenbanken machen sie zu einer idealen Wahl für moderne Anwendungen.
 
+Praktischer Nachweis
+============
+
+ERD Ausgangslage
+------------
+
+![books erd](images/b1f/book_erd.png)
+
+- Bücher haben Titel, Autor, Erscheinungsjahr, Genres.
+- Nutzer können Bücher bewerten (1–5 Sterne) und einen Kommentar hinterlassen.
+- Jede Bewertung gehört zu einem Buch und einem Nutzer.
+
+Struktur des Datenmodells in MongoDB
+-------------
+
+
+User
+
+```js
+{
+  "_id": ObjectId,
+  "username": "booklover42",
+  "email": "reader@example.com",
+  "registeredAt": ISODate
+}
+```
+
+Book
+
+```js
+{
+  "_id": ObjectId,
+  "title": "Clean Code",
+  "author": "Robert C. Martin",
+  "published_year": 2008,
+  "genres": ["Programming", "Software Engineering"]
+}
+```
+
+Rating
+
+```js
+{
+  "_id": ObjectId,
+  "book_id": ObjectId, // Referenz zum Buch
+  "user_id": ObjectId, // Referenz zum Nutzer
+  "stars": 5,
+  "comment": "Fragwürdige Empfehlungen!",
+  "created_at": ISODate
+}
+```
+
+Mit Container von oben Verbinden und in `library` Datenbank wechseln:	
+
+```bash
+docker exec -it mongodb mongosh
+use library
+```
+
+Benutzer anlegen
+
+```js
+# Benutzer anlegen
+const userId = ObjectId();
+db.users.insertOne({
+  _id: userId,
+  username: "reader123",
+  email: "reader@example.com",
+  registered_at: new Date()
+});
+```
+
+Buch anlegen
+
+```js
+const bookId = ObjectId();
+db.books.insertOne({
+  _id: bookId,
+  title: "Clean Code",
+  author: "Robert C. Martin",
+  published_year: 2008,
+  genres: ["Programming", "Software Engineering"]
+});
+```
+
+Bewertung erstellen
+
+```js
+db.ratings.insertOne({
+  book_id: bookId,
+  user_id: userId,
+  stars: 5,
+  comment: "Fragwürdige Empfehlungen!",
+  created_at: new Date()
+});
+```
+
+Abfragebeispiel mit Aggregation
+------------
+
+```js
+db.ratings.aggregate([
+  {
+    $lookup: {
+      from: "books",
+      localField: "book_id",
+      foreignField: "_id",
+      as: "book"
+    }
+  },
+  { $unwind: "$book" },
+  {
+    $lookup: {
+      from: "users",
+      localField: "user_id",
+      foreignField: "_id",
+      as: "user"
+    }
+  },
+  { $unwind: "$user" },
+  {
+    $project: {
+      book_title: "$book.title",
+      reviewer: "$user.username",
+      stars: 1,
+      comment: 1,
+      created_at: 1
+    }
+  }
+]);
+```
+
+Screenshots
+---------
+
+![book_insert_1](images/b1f/book_insert_1.png)
+![book_insert_2](images/b1f/book_insert_2.png)
+![rating](images/b1f/rating.png)
+
 ### B1E
 
 > Ich kann ein Datenmodell für eine NoSQL Datenbank entwerfen.
