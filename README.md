@@ -647,7 +647,6 @@ Screenshots
 
 ![book_insert_1](images/b1f/book_insert_1.png)
 ![book_insert_2](images/b1f/book_insert_2.png)
-![rating](images/b1f/rating.png)
 
 ### B1E
 
