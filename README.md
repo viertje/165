@@ -510,8 +510,8 @@ NoSQL-Datenbanken wie MongoDB verwenden eine flexible, schemalose Struktur, die 
 
 Ein Datenmodell umzusetzen ist daher ein einfacher Prozess, der es ermöglicht, Daten in einer NoSQL-Datenbank zu speichern und abzurufen. Die Flexibilität und Skalierbarkeit von NoSQL-Datenbanken machen sie zu einer idealen Wahl für moderne Anwendungen.
 
-Praktischer Nachweis
-============
+### B1F Praktischer Nachweis
+
 
 ERD Ausgangslage
 ------------
@@ -645,7 +645,12 @@ db.ratings.aggregate([
 Screenshots
 ---------
 
+Insert Book and User
+
 ![book_insert_1](images/b1f/book_insert_1.png)
+
+Insert rating and show aggregation
+
 ![book_insert_2](images/b1f/book_insert_2.png)
 
 ### B1E
