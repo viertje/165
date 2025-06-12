@@ -1635,6 +1635,11 @@ Ein Konzept für die Skalierung in NoSQL-Datenbanken sollte folgende Aspekte ber
 
 Mit diesen Konzepten kann eine NoSQL-Datenbank effizient skaliert werden, um den Anforderungen moderner Anwendungen gerecht zu werden.
 
+Visualisierung
+------------------------------
+
+![scaling](images/scalingConcept.png)
+
 
 ## Anbindung an NoSQL Datenbank erstellen
 
