@@ -2447,21 +2447,21 @@ CSV-Daten:
 isbn,title,author,year
 9780140449136,Meditations,Marcus Aurelius,2006
 9780261103573,The Hobbit,J.R.R. Tolkien,1937
-9780553386790,Thinking Fast and Slow,Daniel Kahneman,2011
+9780553386790,Thinking\, Fast and Slow,Daniel Kahneman,2011
 9780307269997,The Road,Cormac McCarthy,2006
 ```
 
 Import CSV-Daten in MongoDB:
 
 ```bash
-docker exec -it books-mongo mongoimport \
-  --username admin \
-  --password secret123 \
-  --authenticationDatabase admin \
-  --db librarydb \
-  --collection books \
-  --type csv \
-  --headerline \
+docker exec -it books-mongo mongoimport `
+  --username admin `
+  --password secret123 `
+  --authenticationDatabase admin `
+  --db librarydb `
+  --collection books `
+  --type csv `
+  --headerline `
   --file /tmp/books.csv
 ```
 
@@ -2495,7 +2495,7 @@ Projektsetup
 
 **Requirements.txt**
 
-```bash
+```txt
 Flask
 pymongo
 python-dotenv
