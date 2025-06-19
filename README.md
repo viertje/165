@@ -1216,6 +1216,78 @@ db.people.find().pretty()
 
 ![Import Result](images/import_result.png)
 
+### C1F Praktischer Nachweis
+
+> Ich kann Daten in eine NoSQL Datenbank übernehmen.
+
+Ausgangslage
+------------
+
+Gegeben ist eine CSV-Datei mit den folgenden Daten:
+
+```csv
+Country;Admin1;Admin2;Date;Value;Unit;Variable
+United States;Alabama;;02/12/2024;33.00;%;Soil Moisture
+United States;Alabama;;09/12/2024;37.00;%;Soil Moisture
+United States;Alabama;;16/12/2024;43.00;%;Soil Moisture
+United States;Alabama;;23/12/2024;36.00;%;Soil Moisture
+United States;Alabama;;30/12/2024;49.00;%;Soil Moisture
+```
+
+Und eine JSON-Datei mit den folgenden Daten:
+
+```json
+[
+  {
+    "Country": "United States",
+    "Admin1": "Alabama",
+    "Admin2": null,
+    "Date": "02/12/2024",
+    "Value": 33.00,
+    "Unit": "%",
+    "Variable": "Soil Moisture"
+  },
+  {
+    "Country": "United States",
+    "Admin1": "Alabama",
+    "Admin2": null,
+    "Date": "09/12/2024",
+    "Value": 37.00,
+    "Unit": "%",
+    "Variable": "Soil Moisture"
+  }
+]
+```
+
+Verwendet wird die bereits erstellten `testdb` Datenbank in der MongoDB.
+
+Um die Daten in die `soil_moisture` Collection zu importieren, können folgende Schritte durchgeführt werden:
+
+```bash
+// Copy the CSV file to the MongoDB container
+docker cp "<path>\csv\soil_moisture.csv" mongodb:/tmp/soil_moisture.csv
+
+docker exec mongodb mongoimport --db weatherdb --collection soil_moisture --type csv --headerline --file /tmp/soil_moisture.csv
+```
+![alt-text](images/C1F/importCSV.png)
+
+![alt-text](images/C1F/importProof.png)
+
+Die JSON-Datei wird in die `soil_moisture` Collection importiert:
+
+```bash
+// Copy the JSON file to the MongoDB container
+docker cp "<path>\json\soil_moisture.json" mongodb:/tmp/soil_moisture.json
+
+docker exec mongodb mongoimport --db weatherdb --collection soil_moisture --file /tmp/soil_moisture.json --jsonArray
+```
+
+![alt-text](images/C1F/importJSON.png)
+
+![alt-text](images/C1F/importJSONProof.png)
+
+
+
 ### C1E
 
 > Ich kann Probleme bei der Übernahme von Daten in eine NoSQL Datenbank erkennen und Lösungen aufzeigen.

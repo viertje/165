@@ -1,0 +1,20 @@
+[
+  {
+    "Country": "United States",
+    "Admin1": "Alabama",
+    "Admin2": null,
+    "Date": "02/12/2024",
+    "Value": 33.00,
+    "Unit": "%",
+    "Variable": "Soil Moisture"
+  },
+  {
+    "Country": "United States",
+    "Admin1": "Alabama",
+    "Admin2": null,
+    "Date": "09/12/2024",
+    "Value": 37.00,
+    "Unit": "%",
+    "Variable": "Soil Moisture"
+  }
+]
