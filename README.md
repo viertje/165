@@ -941,18 +941,21 @@ Anforderungen einer Anwendung in ein NoSQL-Datenmodell übersetzen
 ----------------
 
 1. **Entitäten identifizieren**: Hauptobjekte sind in unserem E-Commerce-System z.B. `User`, `Product`, `Order`, `Review`.
-2. **Beziehungen definieren**:  
-   - Ein `User` kauft viele `Orders`.  
-   - Eine `Order` enthält viele `Products`.  
-   - Ein `User` kann viele `Reviews` schreiben, und ein `Product` hat viele `Reviews`.  
-3. **Abfragemuster analysieren**:  
-   - Anzeige einer Order mit allen Artikeln und Versandadresse.  
-   - Auflistung aller Orders eines Users.  
-   - Anzeige eines Products mit allen Reviews und Rezensenteninfo.  
-   - Suche nach Produkten in einer Kategorie oder nach Neuerscheinungen.  
-4. **Performance- und Skalierbarkeitsziele**:  
-   - Tausende Lese-/Schreibvorgänge pro Sekunde.  
-   - Datenvolumen in den Collections wächst mit Bestellungen und Reviews.
+
+2. **Beziehungen definieren**:
+- Ein `User` kauft viele `Orders`.  
+- Eine `Order` enthält viele `Products`.  
+- Ein `User` kann viele `Reviews` schreiben, und ein `Product` hat viele `Reviews`.
+
+3. **Abfragemuster analysieren**:
+- Anzeige einer Order mit allen Artikeln und Versandadresse.  
+- Auflistung aller Orders eines Users.  
+- Anzeige eines Products mit allen Reviews und Rezensenteninfo.  
+- Suche nach Produkten in einer Kategorie oder nach Neuerscheinungen.
+
+4. **Performance- und Skalierbarkeitsziele**:
+- Tausende Lese-/Schreibvorgänge pro Sekunde
+- Datenvolumen in den Collections wächst mit Bestellungen und Reviews.
 
 Beispielanwendung: E-Commerce-System
 ----------------
@@ -1120,33 +1123,36 @@ Beispielhaftes Datenmodell (JSON-Format)
 Bewertung der Auswirkungen des Datenmodells auf typische Abfragemuster und Skalierbarkeit
 ----------------
 
-**Abfragemuster**
+Abfragemuster
+----------------
+
 1. **Bestellung anzeigen**  
-   - Lade das Dokument aus `orders` per `_id`.  
-   - Artikeldetails (`product_name`) sind denormalisiert und direkt verfügbar.  
-   - Versandadresse als eingebettetes Objekt.  
-   - **Performance**: Eine Abfrage, keine Joins nötig.
+- Lade das Dokument aus `orders` per `_id`.  
+- Artikeldetails (`product_name`) sind denormalisiert und direkt verfügbar.  
+- Versandadresse als eingebettetes Objekt.  
+- **Performance**: Eine Abfrage, keine Joins nötig.
 
 2. **Bestellungen eines Users**  
-   - Suche in `orders` nach `user_id`. (Index auf `orders.user_id`)  
-   - **Performance**: Einfache, schnelle Abfrage.
+- Suche in `orders` nach `user_id`. (Index auf `orders.user_id`)  
+- **Performance**: Einfache, schnelle Abfrage.
 
 3. **Produktdetails mit Reviews**  
-   - Lade `product` aus `products` nach `_id`.  
-   - Suche in `reviews` nach `product_id`. (Index auf `reviews.product_id`)  
-   - `user_name` in den Reviews ist bereits denormalisiert.  
-   - **Performance**: Zwei indizierte Abfragen, verhält sich besser als Joins in relationaler DB.
+- Lade `product` aus `products` nach `_id`.  
+- Suche in `reviews` nach `product_id`. (Index auf `reviews.product_id`)  
+- `user_name` in den Reviews ist bereits denormalisiert.  
+- **Performance**: Zwei indizierte Abfragen, verhält sich besser als Joins in relationaler DB.
 
 4. **Neueste Produkte anzeigen**  
-   - Suche in `products`, sortiere nach `created_at` absteigend, limitiere auf N.  
-   - **Performance**: Sehr schnell.
+- Suche in `products`, sortiere nach `created_at` absteigend, limitiere auf N.  
+- **Performance**: Sehr schnell.
 
 5. **Neues Review hinzufügen**  
-   - Insert in `reviews`.  
-   - Optional: Aktualisierung von `rating_average` in `products`.  
-   - **Performance**: Schreiboperation plus minimaler weiterer Aufwand.
+- Insert in `reviews`.  
+- Optional: Aktualisierung von `rating_average` in `products`.  
+- **Performance**: Schreiboperation plus minimaler weiterer Aufwand.
 
-**Skalierbarkeit**
+Skalierbarkeit
+----------------
 
 - **Horizontale Skalierung**: Sharding pro Collection.  
 - **Dokumentgrössen**: Beherrschbar durch begrenzte Item-Anzahl in Orders.  
