@@ -1562,6 +1562,167 @@ Teste die Rolle, indem du versuchst, Daten zu lesen und zu schreiben. Stelle sic
 
 ![Test Role Nachweis](images/test_role_nachweis.png)
 
+### D1F Praktischer Nachweis
+
+Erstelle eine Rolle dataEditor, die für die Datenbank productdb in der Collection inventory nur Lese- und Schreibrechte besitzt (kein Löschen).
+Erstelle anschliessend den Benutzer editorUser, weise ihm diese Rolle zu und überprüfe, dass:
+
+- Lesen ✅
+- Schreiben ✅
+- Löschen ❌ nicht erlaubt ist
+
+Vorbereitung
+==========
+
+**Docker Container:**
+
+```yml
+services:
+  mongodb:
+    image: mongo:8.0
+    container_name: editor_mongo
+    command: ["mongod", "--auth"]
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo_data:/data/db
+      - ./products.csv:/tmp/products.csv:ro
+    restart: unless-stopped
+
+volumes:
+  mongo_data:
+```
+
+**Daten (CSV):**
+
+```csv
+product,price,quantity
+Laptop,1200,5
+Mouse,25,50
+Keyboard,45,30
+```
+
+**Import:**
+
+```bash
+docker exec editor_mongo mongoimport `
+  --username root `
+  --password example `
+  --authenticationDatabase admin `
+  --db productdb `
+  --collection inventory `
+  --type csv `
+  --headerline `
+  --file /tmp/products.csv
+```
+
+Ausführung
+==========
+
+**1. Rolle erstellen:**
+
+Öffne die Mongo-Shell:
+
+```bash
+docker exec -it editor_mongo mongosh -u root -p example --authenticationDatabase admin
+```
+
+![login admin](images/d1f/login_admin.png)
+
+Dann in der productdb:
+
+```bash
+use productdb
+```
+
+```js
+db.createRole({
+  role: "dataEditor",
+  privileges: [
+    {
+      resource: { db: "productdb", collection: "inventory" },
+      actions: ["find", "insert", "update"]
+    }
+  ],
+  roles: []
+});
+```
+
+![create role](images/d1f/create_role.png)
+
+2. Benutzer mit dieser Rolle erstellen
+
+```js
+db.createUser({
+  user: "editorUser",
+  pwd: "editpass123",
+  roles: [{ role: "dataEditor", db: "productdb" }]
+});
+```
+
+![create user](images/d1f/create_user.png)
+
+3. Test: Leserechte prüfen
+
+```bash
+docker exec -it editor_mongo mongosh `
+  --username editorUser `
+  --password editpass123 `
+  --authenticationDatabase productdb
+```
+
+![login user](images/d1f/login_user.png)
+
+Dann:
+
+```js
+use productdb
+db.inventory.find().pretty()
+```
+
+![find all](images/d1f/find_all.png)
+
+
+4. Test: Schreibrechte (Update & Insert)
+
+Insert:
+
+```js
+db.inventory.insertOne({
+  product: "Monitor",
+  price: 200,
+  quantity: 10
+});
+```	
+
+![insert](images/d1f/insert_one.png)
+
+Update:
+
+```js
+db.inventory.updateOne(
+  { product: "Mouse" },
+  { $set: { price: 30 } }
+);
+```
+
+![update](images/d1f/update.png)
+
+5. Test: Löschversuch
+```js
+db.inventory.deleteOne({ product: "Keyboard" });
+```
+
+![delete](images/d1f/delete.png)
+
+Zusammenfassung
+------------
+
+Mit dieser Konfiguration wurde eine benutzerdefinierte Rolle erstellt, die gezielte Rechte auf eine Collection gewährt. Das verhindert unbeabsichtigte oder böswillige Löschoperationen – ein nützliches Prinzip für die Rechtevergabe in produktiven MongoDB-Systemen.
+
 ### D1E
 
 > Ich kann ein Konzept für Zugriffsberechtigungen einer NoSQL Datenbank entwerfen.
