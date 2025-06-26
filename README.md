@@ -2196,6 +2196,76 @@ Daten auf dem Replikat überprüfen
 ---------------------------
 ![alt-text](images/f1f/checkSecondaryForData.png)
 
+### F1F praktischer Nachweis
+
+> Ich kann für eine NoSQL Datenbank eine Replikation anwenden.
+
+Beweise
+========
+
+1. **Replica Set initialisieren**: 
+
+   In F1F wurden bereits mit einem Docker Compose File drei MongoDB-Container erstellt.
+   Diese werden für den praktischen Nachweis verwendet.
+
+   Ein Replica Set mit mindestens drei Knoten erstellen und sicherstellen, dass es korrekt konfiguriert ist.
+
+```bash
+# Verbindung zum ersten Knoten herstellen
+docker exec -it mongo1 mongosh
+```
+
+```bash
+# Replica Set initialisieren
+rs.initiate({
+  _id: "rs0",
+  members: [
+    { _id: 0, host: "mongo1:27017" },
+    { _id: 1, host: "mongo2:27017" },
+    { _id: 2, host: "mongo3:27017" }
+  ]
+})
+``` 
+
+```bash
+# Replica Set überprüfen
+rs.status()
+``` 
+
+![proof](/images/F1F/Nachweis/replicaProof.png)
+
+2. **Daten in den primären Knoten einfügen**:  
+    Daten in den primären Knoten einfügen, um die Replikation zu testen.
+    Der primäre Knoten ist der Knoten, der die Schreiboperationen ausführt und die Daten an die Replikate weitergibt.
+
+```bash
+# Überprüfen, ob der primäre Knoten korrekt ist
+rs.isMaster().ismaster
+```
+
+```bash
+# Daten in den primären Knoten einfügen
+use testdb
+db.test.insertOne({ message: "Hello :)" })
+```
+![addData](/images/F1F/Nachweis/addData.png)
+
+Sollte ein sekundärer Knoten ausgewählt sein, sieht das so aus:
+
+![secondary](images/F1F/Nachweis/notprimary.png)
+
+3. **Daten auf dem Replikat überprüfen**:  
+    Überprüfen, ob die eingefügten Daten auf den Replikaten verfügbar sind.
+
+```bash
+# Verbindung zum sekundären Knoten herstellen
+docker exec -it mongo2 mongosh
+use testdb
+db.test.find()
+```
+
+![data](images/F1F/Nachweis/checkData.png)
+
 
 ### F1E
 
