@@ -967,6 +967,8 @@ Entitäten:
 - `Order`  
 - `Review`  
 
+![ERD](images/be1-practical.png)
+
 Typische Abfragemuster:
 ----------------
 
