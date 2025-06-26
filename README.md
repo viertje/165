@@ -1991,6 +1991,100 @@ Nachweis
 **Datenbank wiederherstellen:**
 ![Bestätigen der Wiederherstellung](images/e1f/proof.png)
 
+### E1F Praktischer Nachweis
+
+> Ich kann ein Backup und Restore bei einer NoSQL Datenbank anwenden.
+
+Fragenstellung und Lernziele
+==============
+
+In dieser Übung lernt man, wie man eine MongoDB-Datenbank sicher sichert und wiederherstellt. Folgende Lernziele stehen im Fokus:
+
+- Ein vollständiges Backup mit mongodump durchzuführen
+- Die Datenbank mit mongorestore wiederherzustellen
+- Die Datenintegrität nach dem Restore zu verifizieren
+
+Umsetzung
+=========
+
+1. **MongoDB-Container mit Authentifizierung aufsetzen:**
+
+Du kannst für diese Übung den Container aus dem Kaptitel [G1F Praktischer Nachweis](#g1f-praktischer-nachweis) verwenden.
+
+Falls du den Container nicht mehr hast, folge dem Setup Guide aus dem verlinkten Kapitel.
+
+2. **Backup der Datenbank erstellen:**
+
+Mit diesem Befehl wird ein Verzeichnis /backup/productsdb_backup im Container (und auf dem Host unter /backup) angelegt:
+
+```bash
+docker exec books-mongo mongodump `
+  --username admin `
+  --password secret123 `
+  --authenticationDatabase admin `
+  --db librarydb `
+  --out /backup/librarydb_backup
+```
+
+![Backup](images/e1f_practical/backup.png)
+
+Logge dich in den Container ein und überprüfe, ob das Backup erfolgreich erstellt wurde:
+
+```bash
+docker exec -it books-mongo bash
+ls -l /backup
+```
+![Backup Verzeichnis](images/e1f_practical/list.png)
+
+3. **Datenbank löschen:**
+
+```bash
+docker exec books-mongo mongosh `
+  --username admin `
+  --password secret123 `
+  --authenticationDatabase admin `
+  --eval 'db.getSiblingDB("librarydb").dropDatabase()'
+```
+
+![Datenbank löschen](images/e1f_practical/drop.png)
+
+Überprüfe, ob die Datenbank gelöscht wurde:
+
+```bash
+docker exec books-mongo mongosh `
+  --username admin `
+  --password secret123 `
+  --authenticationDatabase admin `
+  --eval 'db.getSiblingDB("librarydb").books.find().toArray()'
+```
+
+![Überprüfen der Löschung](images/e1f_practical/check_delete.png)
+
+4. **Datenbank wiederherstellen:**
+
+```bash
+docker exec books-mongo mongorestore `
+  --username admin `
+  --password secret123 `
+  --authenticationDatabase admin `
+  --drop `
+  /backup/librarydb_backup
+```
+
+![Datenbank wiederherstellen](images/e1f_practical/restore.png)
+
+Die Datenbank sollte nun wiederhergestellt sein. Überprüfe dies mit:
+
+```bash
+docker exec books-mongo mongosh `
+  --username admin `
+  --password secret123 `
+  --authenticationDatabase admin `
+  --eval 'db.getSiblingDB("librarydb").books.find().toArray()'
+```
+
+![Überprüfen der Wiederherstellung](images/e1f_practical/check_restore.png)
+
 ### E1E
 
 > Ich kann ein Konzept für das Backup einer NoSQL Datenbank erstellen.
