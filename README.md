@@ -2677,6 +2677,163 @@ Visualisierung
 
 ![scaling](images/scalingConcept.png)
 
+### F1E Konkretes Beispiel
+
+> Ich kann ein Konzept für das Backup einer NoSQL Datenbank erstellen.
+
+Lernziele
+==============
+
+- Backup-Strategien in NoSQL-Datenbanken verstehen.
+- Analyse der Möglichkeiten für Backups in NoSQL-Datenbanken durchführen.
+- Konzeption und Implementierung eines Docker-basierten Backup-Systems für eine NoSQL-Datenbank.
+
+Umsetzung
+=========
+
+Backup-Strategien in NoSQL-Datenbanken
+-----------------------------
+
+In NoSQL-Datenbanken existieren verschiedene Backup-Strategien, die je nach Anforderungen an Konsistenz, Performance und Storage-Auslastung gewählt werden. Die wichtigsten Methoden im Überblick:
+
+- **Physische Backups**: Hierbei werden die eigentlichen Datenverzeichnisse der Datenbank auf Dateisystem-Ebene kopiert, idealerweise als Snapshot des Storage-Layers. Diese Methode ist schnell und stellt alle Daten exakt wie auf Datenträgern vorhanden wieder her, erfordert aber meist Downtime oder Locking, um Konsistenz zu sichern.
+
+- **Log-Shipping / Oplog-Backups**: Die Änderungsprotokolle (z. B. MongoDB-Oplog) werden kontinuierlich gesichert, um ein Point-in-Time-Recovery zu ermöglichen. Dieses Verfahren erlaubt feinkörnigere Wiederherstellungspunkte, benötigt allerdings Speicher fuer Log-Dateien und ein entsprechendes Monitoring, um Lücken zu erkennen.
+
+- **Snapshot-Backups**: Copy-on-Write oder Redirect-on-Write-Snapshots im Storage-Layer liefern konsistente Abbilder ohne grosse Performance-Einbussen. Diese Methode ist schnell, kann aber je nach Storage-Implementierung komplex in die Infrastruktur integriert werden.
+
+- **Logische Backups**: Daten werden auf Dokument- oder Objektebene als JSON, CSV oder mittels spezieller Export-Tools ausgegeben. Logische Backups sind portabel und leicht zu durchsuchen, ihr Erstellen dauert aber länger und sie benötigen mehr Speicherplatz.
+
+- **Inkrementelle Backups**: Es werden nur die seit dem letzten Vollbackup geänderten Daten gesichert. So lassen sich Speicherbedarf und Laufzeit reduzieren. Die Komplexität bei der Wiederherstellung steigt allerdings, da zusätzliche Schritte nötig sind, um Voll- und inkrementelle Backups zusammenzuführen.
+
+Analyse der Backup-Möglichkeiten in NoSQL-Datenbanken
+-----------------------------
+
+Um die passende Backup-Strategie auszuwählen, müssen mehrere Faktoren bewertet werden:
+
+- **RPO (Recovery Point Objective)**: Gibt an, wie viel Datenverlust im Ernstfall maximal akzeptabel ist. Kurze RPOs erfordern häufige Voll- oder Oplog-Backups.
+
+- **RTO (Recovery Time Objective)**: Definiert, wie schnell die Datenbank nach einem Ausfall wieder betriebsbereit sein muss. Niedrige RTOs sprechen für schnelle Wiederherstellungsverfahren wie Storage-Snapshots.
+
+- **Datenvolumen und Wachstum**: Bei grossen Datenmengen sind inkrementelle Verfahren und Snapshots oft effizienter als regelmässige Vollbackups, um Laufzeit und Speicherbedarf zu reduzieren.
+
+- **Konsistenzanforderungen**: In verteilten Systemen muss sichergestellt sein, dass alle Shards oder Replikate in einem konsistenten Zustand gesichert werden. Dies erfordert oft abgestimmte Snapshots oder koordinierte Oplog-Backups.
+
+- **Aufbewahrungsrichtlinien**: Legen fest, wie lange Backups vorgehalten werden müssen, zum Beispiel aus gesetzlichen Gründen. Automatisierte Lösch- und Archivierungsprozesse sind hier hilfreich.
+
+- **Automatisierung und Monitoring**: Ein robustes Monitoring aller Backup-Jobs und automatisierte Alarme bei Fehlern sind entscheidend, um die Zuverlässigkeit zu gewährleisten und manuelle Eingriffe zu minimieren.
+
+
+Konzept für das Backup in NoSQL-Datenbanken (Docker-Beispiel)
+-----------------------------
+
+Im folgenden Docker-Stack betreiben wir eine MongoDB und führen tägliche Backups lokal auf einem Docker-Volume durch. Backups älter als sieben Tage werden automatisch gelöscht.
+
+Verzeichnisstruktur:
+
+```bash
+backup/
+├── Dockerfile
+├── crontab
+└── backup.sh
+docker-compose.yml
+```
+
+Composes-Stack:
+
+```yaml
+# docker-compose.yml
+version: '3.8'
+services:
+  db:
+    image: mongo:8.0
+    container_name: mongodb
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+
+  backup:
+    build:
+      context: ./backup
+      dockerfile: Dockerfile
+    container_name: mongo-backup
+    volumes:
+      - mongo-data:/data/db:ro
+      - backup-storage:/backups
+    environment:
+      MONGO_URI: mongodb://db:27017
+    restart: on-failure
+
+volumes:
+  mongo-data:
+  backup-storage:
+```
+
+Als Nächstes das Docker-Image für den Backup-Service:
+
+```bash
+# backup/Dockerfile
+FROM mongo:8.0
+
+# Cron und gzip installieren
+RUN apt-get update && \
+    apt-get install -y cron gzip && \
+    rm -rf /var/lib/apt/lists/*
+
+# Crontab und Backup-Skript kopieren
+COPY crontab /etc/cron.d/db-backup
+COPY backup.sh /usr/local/bin/backup.sh
+
+# Rechte setzen und Crontab aktivieren
+RUN chmod 0644 /etc/cron.d/db-backup && \
+    crontab /etc/cron.d/db-backup && \
+    chmod +x /usr/local/bin/backup.sh
+
+# Cron im Vordergrund starten
+CMD ["cron", "-f"]
+```
+
+Jetzt die Crontab-Datei für den täglichen Job um 02:00 Uhr.
+
+```bash
+# backup/crontab
+0 2 * * * root /usr/local/bin/backup.sh >> /var/log/backup.log 2>&1
+```
+
+- Zeitplan: 0 2 * * * → täglich um 02:00 Uhr
+- User: root → läuft als root
+- Befehl: /usr/local/bin/backup.sh → dein Skript
+- Logging: Ausgabe und Fehler landen in /var/log/backup.log
+
+Und schliesslich das Backup-Skript. Es erstellt einen zeitgestempelten Dump, komprimiert ihn und bereinigt lokale Backups älter als sieben Tage.
+In unserem Docker-Beispiel wird bei jedem Lauf mit `mongodump --archive` ein logisches Vollbackup erstellt. Das fällt in die Theorie-Kategorie der logischen Backups, weil die Datenbankinhalte auf Dokument-/Objektebene exportiert und nicht als physische Dateisystem-Kopie oder Storage-Snapshot abgeholt werden.
+
+```bash
+#!/bin/sh
+# Variables
+TIMESTAMP=$(date +"%F_%T")
+BACKUP_DIR=/backups/$TIMESTAMP
+
+# Verzeichnis anlegen
+mkdir -p "$BACKUP_DIR"
+
+# MongoDB-Dump als Archiv
+mongodump --uri="$MONGO_URI" --archive="$BACKUP_DIR/dump.archive"
+
+# Archiv komprimieren
+gzip "$BACKUP_DIR/dump.archive"
+
+# Aufbewahrung: lokale Backups älter als 7 Tage löschen
+find /backups -maxdepth 1 -type d -mtime +7 -exec rm -rf {} \;
+```
+
+Manueller Test des Backups:
+
+```bash
+docker exec mongo-backup /usr/local/bin/backup.sh
+```
+
+![Konzept](images/f1e_concept.png)
 
 ## Anbindung an NoSQL Datenbank erstellen
 
